@@ -12,6 +12,7 @@ class Post(db.Model):
     title = db.Column(db.String(20), nullable=False)
     content = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    community_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('communities.id')), nullable=False)
     post_date = db.Column(db.String, nullable=False)
 
     #relationship attributes
@@ -19,8 +20,7 @@ class Post(db.Model):
     comments = db.relationship("Comment", back_populates="posts", cascade="all, delete")
     likes = db.relationship("Like", back_populates="posts", cascade="all, delete")
     medias = db.relationship("Media", back_populates="posts", cascade="all, delete")
-
-
+    community = db.relationship("Community", back_populates="members", cascade="all, delete")
 
     def to_dict(self):
         return {
