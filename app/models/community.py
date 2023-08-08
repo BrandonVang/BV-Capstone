@@ -10,4 +10,4 @@ community =db.Table(
 )
 
 if environment == "production":
-    follow.schema = SCHEMA
+    community.schema = SCHEMA
