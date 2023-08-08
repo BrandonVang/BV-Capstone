@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     likes = db.relationship("Like", back_populates="users")
 
     # Relationship with communities (self-referential)
-    communities = db.relationship(
+    communities_joined = db.relationship(
         "Community",
         secondary='user_communities',
         back_populates="members"
