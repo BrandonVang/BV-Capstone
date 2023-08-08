@@ -3,13 +3,13 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
 class Community(db.Model):
-    __tablename__ = 'communities',
+    __tablename__ = 'communities'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    community_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+    name = db.Column(db.String(100), nullable=False, unique=True)
 
 
     members = db.relationship(
@@ -18,4 +18,8 @@ class Community(db.Model):
         back_populates="communities_joined"
     )
 
-
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name
+        }

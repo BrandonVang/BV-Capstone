@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from .community import community
+from .user_communities import user_community
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     comments = db.relationship("Comment", back_populates="users")
     likes = db.relationship("Like", back_populates="users")
 
-   # Relationship with communities (self-referential)
+    # Relationship with communities (self-referential)
     communities = db.relationship(
         "Community",
         secondary='user_communities',
