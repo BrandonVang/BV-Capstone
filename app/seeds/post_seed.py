@@ -46,9 +46,9 @@ def seed_posts():
     post19 = Post(
         title="Coding Joke",content="Why do programmers prefer dark mode? Because light attracts bugs", user_id=2, community_id=4, post_date=datetime_formatted)
     post20 = Post(
-        title="How many developers does it take to screw in a lightbulb?", content="None. It’s a hardware problem", user_id=1, community_id=4, post_date=datetime_formatted)
+        title="How many developers does it take to screw in a lightbulb?", content="None. Its a hardware problem", user_id=1, community_id=4, post_date=datetime_formatted)
     post21 = Post(
-        title="What’s a better name for Frontend Developers?", content="They are called div elopers", user_id=5, community_id=4, post_date=datetime_formatted)
+        title="Whats a better name for Frontend Developers?", content="They are called div elopers", user_id=5, community_id=4, post_date=datetime_formatted)
 
 
     posts = [post1, post2, post3, post4, post5, post6, post7, post8, post9, post10, post11, post12, post13, post14, post15, post16, post17, post18, post19, post20, post21]
