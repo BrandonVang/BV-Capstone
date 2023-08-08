@@ -18,12 +18,11 @@ class User(db.Model, UserMixin):
     comments = db.relationship("Comment", back_populates="users")
     likes = db.relationship("Like", back_populates="users")
 
-    followers = db.relationship(
-        'User',
-        secondary=community,
-        primaryjoin=(community.c.followed_id == id),
-        secondaryjoin=(community.c.follower_id == id),
-        backref=db.backref('following', lazy='dynamic'),
+   # Relationship with communities (self-referential)
+    communities = db.relationship(
+        "Community",
+        secondary='user_communities',
+        back_populates="members"
     )
 
     @property
