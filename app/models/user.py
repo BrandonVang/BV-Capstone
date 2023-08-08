@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
     # Relationship with communities (self-referential)
     communities_joined = db.relationship(
         "Community",
-        secondary='user_communities',
+        secondary='user_community',
         back_populates="members"
     )
 

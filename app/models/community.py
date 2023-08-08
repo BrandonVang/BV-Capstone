@@ -14,7 +14,7 @@ class Community(db.Model):
 
     members = db.relationship(
         "User",
-        secondary='user_communities',
+        secondary='user_community',
         back_populates="communities_joined"
     )
 
