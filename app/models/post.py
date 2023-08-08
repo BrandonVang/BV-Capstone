@@ -9,7 +9,7 @@ class Post(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(20), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     community_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('communities.id')), nullable=False)

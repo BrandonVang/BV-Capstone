@@ -8,7 +8,7 @@ datetime_formatted = formatted_date.strftime("%Y-%m-%d %H:%M:%S")
 
 def seed_posts():
     post1 = Post(
-        title="Advice on my little puppy", content="Had my dog for a few weeks, just wondering what type of toys are good for him?", user_id=1, community_id=1, post_date = datetime_formatted,)
+        title="Advice on my little puppy", content="Had my dog for a few weeks, just wondering what type of toys are good for him?", user_id=1, community_id=1, post_date = datetime_formatted)
     post2 = Post(
         title="look at my dog!", content="Look at my puppers hes growing up!", user_id=1, community_id=1, post_date = datetime_formatted)
     post3 = Post(
