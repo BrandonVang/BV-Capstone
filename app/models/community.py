@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-
+from .user_communities import user_community
 
 
 class Community(db.Model):
@@ -14,7 +14,7 @@ class Community(db.Model):
 
     members = db.relationship(
         "User",
-        secondary='user_community',
+        secondary=user_community,
         back_populates="communities_joined"
     )
 
