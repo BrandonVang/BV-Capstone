@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: fb3a568d8254
+Revision ID: 70dbbce313fb
 Revises:
-Create Date: 2023-08-08 07:51:39.743712
+Create Date: 2023-08-08 14:12:36.913095
 
 """
 from alembic import op
@@ -13,9 +13,8 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 
-
 # revision identifiers, used by Alembic.
-revision = 'fb3a568d8254'
+revision = '70dbbce313fb'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,8 +25,7 @@ def upgrade():
     op.create_table('communities',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -83,15 +81,14 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
-
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE posts SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE medias SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE user_communities SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE likes SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE communities SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE likes SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE user_communities SET SCHEMA {SCHEMA};")
 
 
 def downgrade():

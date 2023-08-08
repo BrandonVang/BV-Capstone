@@ -25,6 +25,7 @@ class Post(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
+            "title": self.title,
             "content": self.content,
             "postDate": self.post_date,
             "user": self.users.to_dict(),
@@ -38,6 +39,7 @@ class Post(db.Model):
     def to_dict_no_user(self):
         return {
             "id": self.id,
+            "title": self.title,
             "content": self.content,
             "postDate": self.post_date,
             "medias": self.medias.to_dict(),
