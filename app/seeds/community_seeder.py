@@ -28,8 +28,8 @@ def seed_community():
 
 def undo_community():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.posts RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.communities RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM posts"))
+        db.session.execute(text("DELETE FROM communities"))
 
     db.session.commit()

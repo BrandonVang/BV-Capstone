@@ -17,7 +17,7 @@ def view_comments(post_id):
 # Route to add a comment to a specific post
 @comment_routes.route('/<int:post_id>/new', methods=['POST'])
 def add_comment(post_id):
-    # Check if the user is authenticated by calling the 'authenticate' route
+
     auth_response = authenticate()
     if 'errors' in auth_response:
         return auth_response
@@ -26,11 +26,6 @@ def add_comment(post_id):
 
     if 'content' not in data:
         return {'error': 'Content not provided'}
-
-    # # Check if the user has already made a comment on this post_id
-    # existing_comment = Comment.query.filter_by(post_id=post_id, user_id=auth_response['id']).first()
-    # if existing_comment:
-    #     return {'error': 'You have already made a comment on this post'}, 400
 
     formatted_date = datetime.now()
     datetime_formatted = formatted_date.strftime("%Y-%m-%d %H:%M:%S")

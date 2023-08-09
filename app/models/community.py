@@ -12,7 +12,7 @@ class Community(db.Model):
     name = db.Column(db.String(100), nullable=False)
 
 
-    posts = db.relationship("Post", back_populates="community")
+    posts = db.relationship("Post", back_populates="community", cascade="all, delete")
 
     members = db.relationship(
         "User",
