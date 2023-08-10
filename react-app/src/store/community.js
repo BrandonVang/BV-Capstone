@@ -101,8 +101,8 @@ export default function communityReducer(state = initialState, action) {
                 userCommunities: newUserCommunities,
             };
 
-            default:
-                return state
+        default:
+            return state
 
     }
 }
