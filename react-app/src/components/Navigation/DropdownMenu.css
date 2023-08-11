@@ -1,0 +1,86 @@
+/* DropdownMenu.css */
+
+.dropdown-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    color: white;
+    border: 1px solid #ccc;
+    /* Add the border property here */
+    cursor: pointer;
+    font-size: 12px;
+    color: #333;
+    padding: 5px 5px;
+    border-radius: 5px;
+    margin-left: 10px;
+    position: relative;
+    height: 40px;
+    /* Add this to create a stacking context */
+    z-index: 1;
+    /* Add this to ensure the dropdown-list appears below */
+}
+
+.down-arrow {
+    margin-left: 97px;
+}
+
+.fa-home {
+    margin-right: 5px;
+}
+
+.dropdown-list {
+    position: absolute;
+    top: calc(70% + 5px);
+    /* Adjust this value to control the gap between toggle and list */
+    left: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    z-index: 1000;
+    width: 145px;
+    border-top: none;
+    /* Remove the top border */
+}
+
+
+
+.dropdown-list li {
+    margin-bottom: 5px;
+}
+
+.dropdown-list a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.dropdown-list a:hover {
+    color: #0079d3;
+}
+
+
+/* profile button */
+
+.profile-log {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.profile-down-arrow {
+    margin-left:89px;
+}

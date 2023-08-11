@@ -26,7 +26,8 @@ const setRemoveCommunities = (community) => ({
 export const fetchAllCommunities = () => async (dispatch) => {
     const response = await fetch(`/api/community/`)
     if (response.ok) {
-        const { community } = await response.json()
+        const community = await response.json()
+        console.log("test", community)
         dispatch(setAllCommunities(community))
     }
 }
@@ -70,16 +71,16 @@ export const fetchRemoveCommunities = (community_id) => async (dispatch) => {
 
 
 const initialState = {
-    communities: {},
+    allCommunity: {},
     userCommunities: {}
 }
 
 export default function communityReducer(state = initialState, action) {
     switch (action.type) {
         case SET_ALL_COMMUNITIES:
-            let comState = { ...state, communities: {} }
+            let comState = { ...state, allCommunity: {} }
             action.community.forEach((communities) => {
-                comState.communities[community.id] = communities
+                comState.allCommunity[communities.id] = communities
             })
             return comState
         case SET_LOGGED_IN_USER_COMMUNITIES:
@@ -97,7 +98,7 @@ export default function communityReducer(state = initialState, action) {
             const newUserCommunities = state.userCommunities.filter(community => community.id !== action.community.id);
             return {
                 ...state,
-                communities: newCommunities,
+                allCommunity: newCommunities,
                 userCommunities: newUserCommunities,
             };
 

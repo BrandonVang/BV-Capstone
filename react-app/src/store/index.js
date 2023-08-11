@@ -5,6 +5,7 @@ import postsReducer from './post';
 import mediaReducer from './media';
 import likesReducer from './like';
 import commentsReducer from './comment'
+import communityReducer from './community';
 
 const rootReducer = combineReducers({
   session,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   likes: likesReducer,
   media: mediaReducer,
   comments: commentsReducer,
+  communities: communityReducer,
 });
 
 

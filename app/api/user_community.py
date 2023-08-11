@@ -14,6 +14,7 @@ def get_all_communities():
     communities = Community.query.all()
     response_communities = [community.to_dict() for community in communities]
     return jsonify(response_communities)
+    #  return {"community":response_communities}
 
 @communities_routes.route('/joined', methods=['GET'])
 @login_required
@@ -25,6 +26,7 @@ def get_logged_in_user_communities_joined():
     following_communities = user.communities_joined
     response_following_communities = [community.to_dict() for community in following_communities]
     return jsonify(response_following_communities)
+    #  return {"community":response_following_communities}
 
 
 
