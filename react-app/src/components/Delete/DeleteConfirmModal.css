@@ -1,0 +1,72 @@
+.delete-button {
+    background-color: red;
+    margin-bottom: 5%;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: rgb(248, 66, 66);
+}
+
+.cancelDelete-button {
+    background-color: darkgray;
+    cursor: pointer;
+}
+
+.cancelDelete-button:hover {
+    background-color: lightgray;
+}
+
+.delete-modal-wrapper {
+    width: 400px;
+    height: 300px;
+    border-radius: 10px;
+}
+
+.delete-modal-title {
+    display: flex;
+    justify-content: center;
+}
+
+.delete-modal-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-modal-button-wrapper button {
+    width: 90%;
+    height: 50px;
+}
+
+.delete-confirm-text p {
+    padding-left: 5%;
+}
+
+.comment-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+
+}
+
+.edit-comment-input {
+    height: 80px;
+    width: 350px;
+
+}
+
+.edit-comment-submit {
+    border: none;
+    border-radius: 10px;
+    height: 50px;
+    width: 200px;
+    background-color: #1E90FF;
+    cursor: pointer;
+}
+
+.edit-comment-submit:hover {
+    background-color: #00BFFF;
+}

@@ -110,6 +110,8 @@ def update_post(id):
 
   if form.validate_on_submit():
     post_to_update = Post.query.get(id)
+    updated_community_id = request.json.get("community_id")
+    post_to_update.community_id = updated_community_id
 
     if post_to_update.users.id != current_user.id:
       return jsonify({'error': 'You are not authorized to delete this post'}), 401

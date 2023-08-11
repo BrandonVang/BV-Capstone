@@ -1,0 +1,102 @@
+.form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: auto;
+    min-height: 30rem;
+    width: 40rem;
+    border-radius: 10px;
+}
+
+.media-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.Post-Media-input {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.selected-file {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #888;
+}
+
+.Post-Media-input:hover {
+    background-color: #e0e0e0;
+}
+
+.Post-Media-input:active {
+    background-color: #d0d0d0;
+}
+
+.create-post-form {
+    padding: 1rem;
+
+
+}
+
+.PostForm-content {
+    height: 80px;
+    width: 300px
+}
+
+.Create-Form-Submit-btn {
+    padding: 2rem;
+    height: 5rem
+}
+
+.Create-Post-Submit {
+    border: none;
+    border-radius: 10px;
+    height: 50px;
+    width: 250px;
+    background-color: grey;
+    cursor: pointer;
+}
+
+.Create-Post-Submit:hover {
+    background-color: lightgrey
+}
+
+.media-list {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.media-counts {
+    flex-grow: 1;
+}
+
+.DeleteIcon {
+    cursor: pointer;
+}
+
+.community-input {
+    margin-bottom: 10px;
+}
+
+.Community-dropdown {
+    height: 20px;
+    width: 150px
+}
+
+.title-input{
+    margin-bottom: 10px;
+}
+
+.PostForm-title {
+    height:20px;
+    width: 150px;
+}

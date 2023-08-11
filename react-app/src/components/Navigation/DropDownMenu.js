@@ -24,7 +24,7 @@ const DropdownMenu = () => {
         <div className="dropdown-menu">
             <button className="dropdown-toggle" onClick={toggleDropdown}>
                 <i className='fa fa-home'></i>
-                Home
+                <p className='home-desc'> Home </p>
                 <div className='down-arrow'>
                     <i className="fas fa-angle-down angle-icon"></i>
                 </div>

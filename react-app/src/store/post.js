@@ -87,36 +87,52 @@ export const fetchPostById = (postId) => async (dispatch) => {
     }
 };
 
-export const thunkCreatePost = (formData) => async (dispatch) => {
-    const response = await fetch("/api/posts", {
-        method: "POST",
-        body: formData,
-    });
+export const thunkCreatePost = (postData) => async (dispatch) => {
+    try {
+        const response = await fetch("/api/posts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(postData), // Send the entire postData object as JSON
+        });
 
-    if (!response.ok) {
-        throw new Error("Failed to create the post.");
+        if (!response.ok) {
+            throw new Error("Failed to create the post.");
+        }
+
+        const data = await response.json();
+        console.log("This is post from thunkCreate", data);
+        dispatch(addPost(data.posts));
+        return data.posts;
+    } catch (error) {
+        console.error("Error creating post:", error);
+        throw error; // Re-throw the error to be handled in the component
     }
-    const data = await response.json();
-    console.log("This is post from thunkCreate", data)
-    dispatch(addPost(data.posts));
-    return data.posts
 };
 
-export const thunkEditPost = (id, content) => async (dispatch) => {
-    const response = await fetch(`/api/posts/${id}`, {
-        method: "PUT",
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
-        body: content,
-    });
 
-    if (!response.ok) {
-        throw new Error("Failed to update the post.");
+export const thunkEditPost = (id, updatedData) => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/posts/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedData),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to update the post.");
+        }
+
+        const { updatedPost } = await response.json();
+        dispatch(updatePostAction(updatedPost));
+    } catch (error) {
+        console.error("Error updating post:", error);
+        throw error; // Re-throw the error to be handled in the component
     }
 
-    const { updatedPost } = await response.json();
-    dispatch(updatePostAction(updatedPost));
 };
 
 export const thunkDeletePostById = (post) => async (dispatch) => {

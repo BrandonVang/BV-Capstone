@@ -1,26 +1,59 @@
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { thunkDeletePostById } from '../../store/post';
+import OpenModalMenuItem from './OpenModalMenuItem'
+import DeleteConfirmModal from '../Delete';
+import EditPostForm from '../CreatePost/EditPostForm';
 import './PostIndex.css';
 
 const PostIndexItem = ({ post, fromPath }) => {
     const history = useHistory();
     const dispatch = useDispatch();
+    const getCurrentUser = (state) => state.session.user;
+    const currentUser = useSelector(getCurrentUser);
+
 
     return (
         <div className='post-index-item-wrapper'>
             <div className="post-index-item">
-                <Link className='postItem-title-bar' to={`/posts/${post.id}`}>
-                    <div className='post-user-follow'>
-                        <span className='community'> /{post.community.name} </span>
-                        <span className='title-bar-username'>Posted By {post.user.username} </span>
-                        <span className='title-bar-follow'>Join</span>
-                    </div>
+                <div className='title-bar-container'>
+
+                    <Link className='postItem-title-bar' to={`/posts/${post.id}`}>
+                        <div className='post-user-follow'>
+                            <span className='community'> /{post.community.name} </span>
+                            <span className='title-bar-username'>Posted By {post.user.username} </span>
+                        </div>
+                    </Link>
 
                     <div className='post-index-item-menu'>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z" /></svg>
+                        <div className='title-bar-follow-cont'>
+                            <span className='title-bar-follow'>Join</span>
+                        </div>
+                        <svg className=""xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                            <path d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z" />
+                        </svg>
+                        <div className="dropdown-content">
+
+                            {currentUser && currentUser.id === post.user.id &&
+                                (
+                                    <div className='postitem-delete-edit-wrapper'>
+                                        <OpenModalMenuItem
+                                            itemType='delete_icon'
+                                            itemText='Delete'
+                                            modalComponent={<DeleteConfirmModal post={post} type='post' />}
+                                        />
+                                        <OpenModalMenuItem
+                                            itemType='edit_icon'
+                                            itemText="Update"
+                                            modalComponent={<EditPostForm post={post} />}
+                                            // onItemClick={closeMenu}
+                                        />
+                                    </div>
+                                )
+                            }
+                        </div>
                     </div>
-                </Link>
+                </div>
 
                 <div className='post-title'>
                     <h2>{post.title}</h2>
