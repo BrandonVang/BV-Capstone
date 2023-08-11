@@ -20,17 +20,26 @@
     border-radius: 5px;
     margin-left: 10px;
     position: relative;
-    height: 40px;
+    height: 35px;
     /* Add this to create a stacking context */
     z-index: 1;
     /* Add this to ensure the dropdown-list appears below */
 }
 
 .down-arrow {
-    margin-left: 97px;
+    margin-left: 95px;
+}
+
+.fa-user-circle {
+    size: 100px;
 }
 
 .fa-home {
+    margin-right: 5px;
+}
+
+.profile-icon {
+    width: 20px;
     margin-right: 5px;
 }
 
@@ -82,5 +91,5 @@
 }
 
 .profile-down-arrow {
-    margin-left:89px;
+    margin-left:80px;
 }

@@ -9,10 +9,10 @@
 .post-index-all {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    padding: 40px 20px;
+    justify-content: center;
+    padding: 10px;
     gap: 20px;
-    max-width: 200px;
+
 }
 
 .post-title{
@@ -24,7 +24,7 @@
     flex-direction: column;
     min-width: 400px;
     max-width: 800px;
-    border-radius: 10px;
+    border-radius: 5px;
     background-color: white;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -32,9 +32,9 @@
 
 .post-index-item-wrapper {
     display: grid;
-    max-width: 614px;
-    min-width: 614px;
-    grid-template-columns: 1fr 10fr;
+    max-width: 700px;
+    min-width: 700px;
+    /* grid-template-columns: 10fr 10fr; */
     gap: 20px;
 }
 
@@ -52,7 +52,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: #f6f7f8;
-
+    border-radius: 5px;
     padding: 0 16px;
     border-bottom: 1px solid #e1e4e8;
 }

@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllCommunities, fetchLoggiedInUserCommunities } from '../../store/community';
 import './DropdownMenu.css';
 
-const DropdownMenu = ({ userCommunities }) => {
+const DropdownMenu = () => {
+    const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
+    const userCommunities = useSelector(state => state.communities.userCommunities);
+
+
+    useEffect(() => {
+        if (sessionUser) {
+            dispatch(fetchLoggiedInUserCommunities());
+        }
+    }, [dispatch]);
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);

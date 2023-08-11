@@ -4,19 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import logo from '../../images/logo.jpg'
-import { fetchAllCommunities, fetchLoggiedInUserCommunities } from '../../store/community';
+// import { fetchAllCommunities, fetchLoggiedInUserCommunities } from '../../store/community';
 import DropdownMenu from './DropDownMenu';
 
 
 function Navigation({ isLoaded}){
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 	const sessionUser = useSelector(state => state.session.user);
 	const [searchInput, setSearchInput] = useState('');
-	const userCommunities = useSelector(state => state.communities.userCommunities);
-
-	useEffect(() => {
-		dispatch(fetchLoggiedInUserCommunities());
-	}, [dispatch]);
+	// const userCommunities = useSelector(state => state.communities.userCommunities);
 
 
 	const handleReserveClick = () => {
@@ -38,7 +34,7 @@ function Navigation({ isLoaded}){
 				</NavLink>
 
 				{sessionUser &&
-				<DropdownMenu userCommunities={userCommunities} />
+				<DropdownMenu/>
 				}
 
 			</div>
@@ -47,13 +43,22 @@ function Navigation({ isLoaded}){
 						type="text"
 						value={searchInput}
 						onChange={handleSearchChange}
-						placeholder="Search Tumblr"
+						placeholder="Search Bluedit"
 					/>
 					<button type="submit">Search</button>
 				</form>
 
+
 			{isLoaded && (
 				<div className='nav'>
+					{sessionUser && (
+						<>
+							<NavLink to="/" className="icon-item">
+								<i className="fa fa-plus fa-lg" /> {/* Home Component*/}
+							</NavLink>
+
+						</>
+					)}
 					<ProfileButton user={sessionUser} />
 				</div>
 			)}

@@ -13,7 +13,6 @@ const PostIndex = () => {
     const history = useHistory();
     const path = window.location.pathname;
     const posts = useSelector(getPost);
-    console.log(posts)
     // const currentSpots = posts.filter(post => post.user.id === user.id);
     const dispatch = useDispatch();
 
