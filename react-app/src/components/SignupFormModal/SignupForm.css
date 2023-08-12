@@ -1,0 +1,49 @@
+.sign-win {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 400px;
+}
+
+.sign-win form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.sign-win label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    width: 90%;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.sign-win button {
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    color: black;
+    background-color: white;
+    width: 90%;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.sign-win input {
+    height: 30px
+}
+
+
+.signup-error {
+    color: red;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+}

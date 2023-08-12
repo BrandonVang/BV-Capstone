@@ -42,33 +42,38 @@ function ProfileButton({ user }) {
 
   return (
     <div>
-      <button className="profile-log"onClick={openMenu}>
+      <button className="profile-log" onClick={openMenu}>
         <img className="profile-icon" src={Logo} />
         {sessionUser &&
           <div className="profile-username">{user.username}</div>
         }
         <div className="profile-down-arrow">
-        <i className="fas fa-angle-down angle-icon"></i>
+          <i className="fas fa-angle-down angle-icon"></i>
         </div>
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <div>
-              <button onClick={handleLogout}>Log Out</button>
+            <button onClick={handleLogout}>Log Out</button>
           </div>
         ) : (
           <>
-            <OpenModalButton
-              buttonText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
+            <div className="login-modal">
+              <OpenModalButton
+                className="login-modal-button"
+                buttonText="Log In"
+                onItemClick={closeMenu}
+                modalComponent={<LoginFormModal />}
               />
-
-            <OpenModalButton
-              buttonText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
+            </div>
+            <div className="sign-up-modal">
+              <OpenModalButton
+                className="signup-modal-button"
+                buttonText="Sign Up"
+                onItemClick={closeMenu}
+                modalComponent={<SignupFormModal />}
               />
+            </div>
           </>
         )}
       </ul>

@@ -100,3 +100,7 @@
     height:20px;
     width: 150px;
 }
+
+p.errors {
+    color: red;
+}

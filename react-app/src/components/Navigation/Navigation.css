@@ -127,49 +127,6 @@
 }
 
 
-.Cred {
-  background-color: #00cf35;
-  color: black;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  width: 60px;
-  height: 40px;
-  border: none;
-  font-weight: bold;
-}
-
-.Login-modal-button,
-.signup-modal-button {
-  background: transparent;
-  border: none;
-  color: black;
-  cursor: pointer;
-}
-
-
-.logo-login {
-  color: rgb(197, 191, 191);
-  margin-right: 10px;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-}
-
-.logo-login:hover {
-  transform: translateY(-5px);
-}
-
-
-.create-but {
-  background: rgb(0, 174, 255);
-  border: none;
-  cursor: pointer;
-  width: 50px;
-  height: 20px;
-}
-
 .fas.fa-plus.fa-lg {
   color: white;
   border: none;

@@ -105,3 +105,18 @@
     margin-left: 80px;
     color: white;
 }
+
+
+.login-modal,
+.sign-up-modal {
+    padding-left: 35px;
+}
+
+.login-modal-button,
+.signup-modal-button {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+}
