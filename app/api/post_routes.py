@@ -112,6 +112,7 @@ def update_post(id):
     post_to_update = Post.query.get(id)
     updated_community_id = request.json.get("community_id")
     post_to_update.community_id = updated_community_id
+    updated_title = request.json.get("title")
 
     if post_to_update.users.id != current_user.id:
       return jsonify({'error': 'You are not authorized to delete this post'}), 401
@@ -120,6 +121,7 @@ def update_post(id):
       return {"errors": f"post with id {id} does not exist"}
     post_to_update.user = current_user
     post_to_update.content = form.data["content"]
+    post_to_update.title = updated_title
     # post_to_update.post_date = date.today()
     db.session.commit()
     return {"updatedPost": post_to_update.to_dict()}

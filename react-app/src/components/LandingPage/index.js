@@ -16,6 +16,14 @@ const PostIndex = () => {
     // const currentSpots = posts.filter(post => post.user.id === user.id);
     const dispatch = useDispatch();
 
+
+    posts.sort((post1, post2) => {
+        const a = new Date(post1.postDate);
+        const b = new Date(post2.postDate);
+        return b - a;
+    });
+
+
     useEffect(() => {
         dispatch(fetchAllPosts());
     }, [dispatch]);
@@ -23,10 +31,10 @@ const PostIndex = () => {
     return (
         <div className='home-wrapper'>
             <div className='post-index-all'>
-                {posts.map((post) => (
+                {posts.map((post, index) => (
                     <PostIndexItem
                         post={post}
-                        key={post.id}
+                        key={index}
                     />
                 ))}
             </div>
