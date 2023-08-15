@@ -1,17 +1,18 @@
 import { useModal } from "../../context/Modal";
 import './DeleteConfirmModal.css';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { thunkDeletePostById, fetchFollowingPosts, fetchAllPosts, fetchPostByCommunity } from '../../store/post';
-import { thunkRemoveComment } from '../../store/comment';
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { thunkDeletePostById, fetchFollowingPosts, fetchAllPosts, fetchPostById } from '../../store/post';
+import { thunkRemoveComment, fetchCommentsByPost } from '../../store/comment';
 import { fetchLoggiedInUserCommunities, fetchAllCommunities } from "../../store/community";
 import { thunkDeleteMedia } from '../../store/media'
 
 
-function DeleteConfirmModal({ comment, post, type }) {
+function DeleteConfirmModal({ comments, post, type }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
-    const [selectedCommunityId, setSelectedCommunityId] = useState(post.community.id)
+
 
     const handleCancel = (e) => {
         e.preventDefault();
@@ -20,15 +21,16 @@ function DeleteConfirmModal({ comment, post, type }) {
 
     const handleDeleteComment = async (commentId) => {
         try {
-            dispatch(thunkRemoveComment(commentId)).then(() => {
-                dispatch(fetchFollowingPosts());
-                dispatch(fetchAllPosts());
-            });
+            await dispatch(thunkRemoveComment(commentId));
             closeModal();
+            await dispatch(fetchPostById(post.id));
+            await dispatch(fetchCommentsByPost(comments.post_id))
+            console.log(" what is this", post.id)
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
+
 
     const handleDeletePost = async (post) => {
         try {
@@ -51,7 +53,7 @@ function DeleteConfirmModal({ comment, post, type }) {
                 <p>Are you sure you want to delete this {type} ?</p>
             </div>
             <div className="delete-modal-button-wrapper">
-                {/* {type === 'comment' && <button className="delete-button" onClick={() => handleDeleteComment(comment.id)}>Yes (Delete {type})</button>} */}
+                {type === 'comment' && <button className="delete-button" onClick={() => handleDeleteComment(comments.id)}>Yes (Delete {type})</button>}
                 {type === 'post' && <button className="delete-button" onClick={() => handleDeletePost(post)}>Yes (Delete {type})</button>}
                 <button className="cancelDelete-button" onClick={handleCancel}>No (Keep {type})</button>
             </div>

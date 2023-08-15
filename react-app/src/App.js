@@ -6,6 +6,8 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import PostIndex from "./components/LandingPage";
+import PostDetailPage from "./components/PostDetail/PostDetail";
+import './styles/main.css'
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/" component={PostIndex} />
+          <Route exact path="/posts/:postId" component={PostDetailPage} />
           <Route path="/login" >
             <LoginFormPage />
           </Route>

@@ -185,7 +185,7 @@ export default function postsReducer(state = initialState, action) {
         case SET_POST:
             return {
                 ...state,
-                singlePost: { ...state.singlePost, [action.post.id]: action.post },
+                singlePost: action.post, // Store the current post directly
             };
         case SET_CURRENT_POSTS:
             let currentPostsState = { ...state, currentPosts: {} };

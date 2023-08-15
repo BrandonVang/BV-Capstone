@@ -54,23 +54,33 @@ const PostIndexItem = ({ post, fromPath }) => {
                         </div>
                     </div>
                 </div>
-
+                <Link to={`/posts/${post.id}`}>
                 <div className='post-title'>
                     <h2>{post.title}</h2>
                 </div>
 
                 <div className=''>
                     <div className='postItem-img-wrapper'>
-                        {post.medias.map((item, index) => (
-                            <div className='postItem-img' key={index}>
-                                <img alt='house' src={`${item.media_url}`} />
-                            </div>
-                        ))}
+                            {post.medias.map((item, index) => (
+                                <div className='postItem-img' key={index}>
+                                    {item.media_url.endsWith("mp4") &&
+                                        (
+                                            <video controls width="490" height="360">
+                                                <source src={`${item.media_url}`} type="video/mp4" />
+                                            </video>
+                                        )
+                                    }
+                                    {!item.media_url.endsWith("mp4") &&
+                                        <img alt='image' src={`${item.media_url}`} />
+                                    }
+                                </div>
+                            ))}
                     </div>
                     <div>
                         <p>{post.content}</p>
                     </div>
                 </div>
+            </Link>
             </div >
         </div>
     );

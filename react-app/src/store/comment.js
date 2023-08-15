@@ -29,7 +29,7 @@ const deleteComment = (commentId) => ({
 export const fetchCommentsByPost = (postId) => async (dispatch) => {
     const response = await fetch(`/api/comments/${postId}`);
     if (response.ok) {
-        const comments = await response.json();
+        const {comments} = await response.json();
         dispatch(setComments(comments));
     } else {
         throw new Error("Failed to fetch comments.");
@@ -53,8 +53,8 @@ export const thunkCreateComment = (postId, content) => async (dispatch) => {
     }
 };
 
-export const thunkEditComment = (commentId, content) => async (dispatch) => {
-    const response = await fetch(`/api/comments/${commentId}`, {
+export const thunkEditComment = (comment_id, content) => async (dispatch) => {
+    const response = await fetch(`/api/comments/${comment_id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
