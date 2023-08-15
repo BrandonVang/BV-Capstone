@@ -14,7 +14,8 @@
     align-items: center;
     position: absolute;
     padding: 8px 4px 8px 0;
-    width: 30px
+    width: 20px;
+    margin-left: 10px;
 }
 
 .detail-count {
@@ -31,7 +32,7 @@
 .detail-container {
     font-size: 14px;
     color: #999;
-    margin: 0;
+    margin-top: 60px;
 }
 
 .detail-user {
@@ -45,12 +46,12 @@
 }
 
 .detail-title {
-    font-size: 24px;
+    font-size: 20px;
     margin: 10px 0;
 }
 
 .detail-image {
-    max-width: 100%;
+    max-width: 90%;
     height: auto;
 }
 
@@ -64,4 +65,83 @@
     flex-wrap: wrap;
     flex: 1 1 auto;
     overflow: hidden;
+
+}
+
+.comment-submit {
+    width: 400px;
+    height: 200px;
+    background: rgb(26, 26, 27);
+    color: white;
+    border: 1px solid #333333;
+    margin-left: 20px;
+}
+
+.detail-main-content {
+    border: 1px solid #333333;
+    background: rgb(26, 26, 27);
+    width: 600px;
+}
+
+.detail-comments-count {
+    padding: 8px 0 0 40px
+}
+
+.detail-comment,
+.detail-comments {
+    margin-left: 10px;
+}
+
+.comment-as {
+    padding: 6px 0 0 20px
+}
+
+.comment-reply {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.detail-comment-submit-container {
+    width: 600px;
+    height: 300px;
+    margin-top: 20px;
+    border: 1px solid #333333;
+    background: rgb(26, 26, 27);
+}
+
+.detail-comment-area {
+
+    justify-content: center;
+    align-items: column;
+    width: 600px;
+    height: 300px;
+    margin-top: 20px;
+    border: 1px solid #333333;
+    background: rgb(26, 26, 27);
+}
+
+.detail-icons {
+    display: flex;
+    margin-left: 5px;
+}
+
+.edit-icon-container {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.delete-icon-container {
+    margin-left: 5px;
+    cursor: pointer;
+
+}
+
+.edit-icon-container:hover,
+.delete-icon-container:hover {
+    border: 1px solid #333333;
+}
+
+.comment-error {
+    color: red;
+    margin-left: 20px;
 }

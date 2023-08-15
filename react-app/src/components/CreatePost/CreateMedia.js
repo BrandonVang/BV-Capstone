@@ -69,6 +69,7 @@ const CreateMediaForm = () => {
         <div className='form-container'>
             <form className='create-post-form' onSubmit={handleSubmit} encType="multipart/form-data" >
                 <div className='community-input'>
+                    {validationErrors.selectedCommunityId && <p className="errors">{validationErrors.selectedCommunityId}</p>}
                     <select
                         className='Community-dropdown'
                         value={selectedCommunityId}
@@ -81,8 +82,8 @@ const CreateMediaForm = () => {
                             </option>
                         ))}
                     </select>
-                    {validationErrors.selectedCommunityId && <p className="errors">{validationErrors.selectedCommunityId}</p>}
                 </div>
+                {validationErrors.title && <p className="errors">{validationErrors.title}</p>}
                 <div className='title-input'>
                     <input
                         className='PostForm-title'
@@ -91,10 +92,10 @@ const CreateMediaForm = () => {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
-                    {validationErrors.title && <p className="errors">{validationErrors.title}</p>}
-                </div>
-                {validationErrors.content ? <p className="errors">{validationErrors.content}</p> : ''}
 
+                </div>
+
+                {validationErrors.content ? <p className="errors">{validationErrors.content}</p> : ''}
                 <input className='PostForm-content'
                     placeholder='Whats on your mind?'
                     type='text'

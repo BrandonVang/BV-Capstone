@@ -15,8 +15,16 @@ const PostIndexItem = ({ post, fromPath }) => {
 
     return (
         <div className='post-index-item-wrapper'>
+
+
             <div className="post-index-item">
                 <div className='title-bar-container'>
+
+                    <div className="landing-detail-vote">
+                        <i className="fa fa-arrow-up" aria-hidden="true"></i>
+                        <p className="detail-count">{post.likes_count}</p>
+                        <i className="fa fa-arrow-down" aria-hidden="true"></i>
+                    </div>
 
                     <Link className='postItem-title-bar' to={`/posts/${post.id}`}>
                         <div className='post-user-follow'>
@@ -25,42 +33,44 @@ const PostIndexItem = ({ post, fromPath }) => {
                         </div>
                     </Link>
 
+
                     <div className='post-index-item-menu'>
                         <div className='title-bar-follow-cont'>
                             <span className='title-bar-follow'>Join</span>
                         </div>
-                        <svg className=""xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
-                            <path d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z" />
-                        </svg>
-                        <div className="dropdown-content">
+                        <i className="fas fa-ellipsis-h"></i>
 
-                            {currentUser && currentUser.id === post.user.id &&
-                                (
+
+                        {currentUser && currentUser.id === post.user.id &&
+                            (
+                                <div className="dropdown-content">
                                     <div className='postitem-delete-edit-wrapper'>
                                         <OpenModalMenuItem
+                                            className="delete-menu"
                                             itemType='delete_icon'
                                             itemText='Delete'
                                             modalComponent={<DeleteConfirmModal post={post} type='post' />}
                                         />
                                         <OpenModalMenuItem
+                                            className="edit-menu"
                                             itemType='edit_icon'
                                             itemText="Update"
                                             modalComponent={<EditPostForm post={post} />}
-                                            // onItemClick={closeMenu}
+                                        // onItemClick={closeMenu}
                                         />
                                     </div>
-                                )
-                            }
-                        </div>
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
-                <Link to={`/posts/${post.id}`}>
-                <div className='post-title'>
-                    <h2>{post.title}</h2>
-                </div>
+                <Link className="postItem-title-center" to={`/posts/${post.id}`}>
+                    <div className='post-title'>
+                        <h2>{post.title}</h2>
+                    </div>
 
-                <div className=''>
-                    <div className='postItem-img-wrapper'>
+                    <div className=''>
+                        <div className='postItem-img-wrapper'>
                             {post.medias.map((item, index) => (
                                 <div className='postItem-img' key={index}>
                                     {item.media_url.endsWith("mp4") &&
@@ -75,13 +85,19 @@ const PostIndexItem = ({ post, fromPath }) => {
                                     }
                                 </div>
                             ))}
+
+
+                        </div>
+                        <div>
+                            <p>{post.content}</p>
+                        </div>
+
                     </div>
-                    <div>
-                        <p>{post.content}</p>
-                    </div>
-                </div>
-            </Link>
+                </Link>
+
             </div >
+
+
         </div>
     );
 };

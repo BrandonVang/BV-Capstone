@@ -9,8 +9,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(58, 56, 56);
-    border: 1px solid #ccc;
+    background: rgb(26, 26, 27);
+    border: none;
     /* Add the border property here */
     cursor: pointer;
     font-size: 12px;
@@ -23,6 +23,10 @@
     /* Add this to create a stacking context */
     z-index: 1;
     /* Add this to ensure the dropdown-list appears below */
+}
+
+.dropdown-toggle:hover{
+    border: 1px solid #333333;
 }
 
 .fa-home,
@@ -57,8 +61,8 @@
     margin-top: 10px;
     margin-left: 10px;
     padding: 10px;
-    background-color: rgb(58, 56, 56);
-    border: 1px solid #ccc;
+    background: rgb(26, 26, 27);
+    border: 1px solid #333333;
     border-radius: 4px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     list-style: none;
@@ -93,9 +97,14 @@
     align-items: center;
     height: 30px;
     border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: rgb(58, 56, 56);
+    border: none;
+    background: rgb(26, 26, 27);
 }
+
+.profile-log:hover{
+    border: 1px solid #333333;
+}
+
 
 .profile-username {
     color: white;

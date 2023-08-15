@@ -2,7 +2,10 @@ import { useHistory } from 'react-router-dom';
 import PostIndexItem from './indexitem';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllPosts } from '../../store/post';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Person from "../../images/person.jpg"
+import OpenModalButton from '../OpenModalButton';
+import CreateMediaForm from '../CreatePost/CreateMedia';
 import './PostIndex.css';
 
 const getPost = (state) => Object.values(state.posts.allPosts);
@@ -15,6 +18,8 @@ const PostIndex = () => {
     const posts = useSelector(getPost);
     // const currentSpots = posts.filter(post => post.user.id === user.id);
     const dispatch = useDispatch();
+    const [showMenu, setShowMenu] = useState(false);
+
 
 
     posts.sort((post1, post2) => {
@@ -28,6 +33,8 @@ const PostIndex = () => {
         dispatch(fetchAllPosts());
     }, [dispatch]);
 
+    const closeMenu = () => setShowMenu(false);
+
     return (
         <div className='home-wrapper'>
             <div className='post-index-all'>
@@ -37,6 +44,24 @@ const PostIndex = () => {
                         key={index}
                     />
                 ))}
+            </div>
+            <div className='post-sidebar'>
+                <div className='l-descri'>
+                    <div className="person-logo-and-heading">
+                        <img className="person-logo" src={Person} alt="Person Logo" />
+                        <h2>Home</h2>
+                    </div>
+                    <p>Your personal Reddit frontpage. Come here to check in with your favorite communities.</p>
+
+                    <OpenModalButton
+                        modalComponent={<CreateMediaForm />}
+                        onItemClick={closeMenu}
+                        className="create-post-button"
+                        buttonText="Create Post"
+                    >
+                    </OpenModalButton>
+
+                </div>
             </div>
         </div>
     );

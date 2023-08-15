@@ -12,7 +12,7 @@ import DeleteConfirmModal from "../Delete/index"
 import DeleteIcon from "../Icons/DeleteIcon";
 import EditIcon from "../Icons/EditIcon";
 
-function PostDetailPage () {
+function PostDetailPage() {
     const dispatch = useDispatch();
     const { postId } = useParams();
     const [post, setPost] = useState(null);
@@ -55,10 +55,10 @@ function PostDetailPage () {
         try {
             await dispatch(thunkCreateComment(post.id, comment_tobe_added))
             await dispatch(fetchPostById(postId))
-            .then((fetchedPost) => {
-                setPost(fetchedPost);
-                setComments(fetchedPost.comments);
-            })
+                .then((fetchedPost) => {
+                    setPost(fetchedPost);
+                    setComments(fetchedPost.comments);
+                })
             setCommentContent("");
             setError("");
         } catch (error) {
@@ -78,71 +78,81 @@ function PostDetailPage () {
     return (
         <div className="detail-container">
 
-            <div className="detail-vote">
-                <i className="fa fa-arrow-up" aria-hidden="true"></i>
-                <p className="detail-count">{post.likes_count}</p>
-                <i className="fa fa-arrow-down" aria-hidden="true"></i>
-            </div>
-            <div className="detail-author">
-                <div className="detail-creator">
-                    <p className="detail-container">r/{post.community.name}</p>
-                    <p className="detail-user">Posted by: {post.user.username}</p>
+            <div className="detail-main-content">
+                <div className="detail-vote">
+                    <i className="fa fa-arrow-up" aria-hidden="true"></i>
+                    <p className="detail-count">{post.likes_count}</p>
+                    <i className="fa fa-arrow-down" aria-hidden="true"></i>
                 </div>
-                <h1 className="detail-title">{post.title}</h1>
-                <img src={post.medias[0].media_url} alt="Post Media" className="detail-image" />
-                <p className="detail-content">{post.content}</p>
-                <p className="detail-comments">{posts.comments.length} Comments </p>
+                <div className="detail-author">
 
-                {currentUser ? (
-                    <>
-                        <h2>Comments as {currentUser.username}:</h2>
+                    <div className="detail-creator">
+                        <p className="detail-communnity">r/{post.community.name}</p>
+                        <p className="detail-user">Posted by: {post.user.username}</p>
+                    </div>
+                    <h1 className="detail-title">{post.title}</h1>
+                    <img src={post.medias[0].media_url} alt="Post Media" className="detail-image" />
+                    <p className="detail-content">{post.content}</p>
+                </div>
+                <p className="detail-comments-count"><i class='far fa-comment'></i> {posts.comments.length} Comments </p>
+            </div>
+            {currentUser ? (
+                <>
+                    <div className="detail-comment-submit-container">
+
+                        <p className="comment-as">Comments as {currentUser.username}:</p>
+                        {error && <p className="comment-error">{error}</p>}
                         <form className='comment-form-container' onSubmit={handleCommentSubmit}>
                             <div className='comment-form-content'>
                                 <input
                                     className='comment-submit'
                                     type="text"
                                     value={commentContent}
-                                    placeholder='Send something nice'
+                                    placeholder='What are your thoughts?'
                                     onChange={(e) => setCommentContent(e.target.value)}
                                 />
                             </div>
                             <div><button className='comment-reply'>Comment</button></div>
-                            {error && <p className="comment-error">{error}</p>}
                         </form>
-                    </>
-                ) : (
-                    <OpenModalButton
-                        modalComponent={<LoginFormModal />}
-                        onItemClick={closeMenu}
-                        buttonText="+ Add Comment"
-                    >
-                    </OpenModalButton>
-                )}
+                    </div>
+                </>
+            ) : (
+                <OpenModalButton
+                    modalComponent={<LoginFormModal />}
+                    onItemClick={closeMenu}
+                    buttonText="+ Add Comment"
+                >
+                </OpenModalButton>
+            )
+            }
 
+            <div className="detail-comment-area">
+
+                {
+                    posts.comments.map((comment) => (
+                        <div key={comment.id} className="detail-comment-container">
+                            <p className="detail-comment">Posted by: {comment.username}, {comment.post_date}</p>
+                            <p className="detail-comments">{comment.content}</p>
+
+                            {currentUser && currentUser.id === comment.user_id && (
+                                <div className="detail-icons">
+                                    <OpenModalMenuItem
+                                        itemType='delete_icon'
+                                        itemText='Delete'
+                                        modalComponent={<DeleteConfirmModal comments={comment} post={post} type="comment" />}
+                                    />
+                                    <OpenModalMenuItem
+                                        itemType='edit_icon'
+                                        itemText="Edit"
+                                        modalComponent={<CommentEditModal comment={comment} />}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    ))
+                }
             </div>
-            {posts.comments.map((comment) => (
-                <div key={comment.id} className="detail-comment-container">
-                    <p className="detail-comments">{comment.content}</p>
-                    <p className="detail-comment">Posted by: {comment.username}</p>
-                    <p>Posted on: {comment.post_date}</p>
-
-                    {currentUser && currentUser.id === comment.user_id && (
-                        <>
-                            <OpenModalMenuItem
-                                itemType='delete_icon'
-                                itemText='Delete'
-                                modalComponent={<DeleteConfirmModal comments={comment} post={post} type="comment" />}
-                            />
-                            <OpenModalMenuItem
-                                itemType='edit_icon'
-                                itemText="Edit"
-                                modalComponent={<CommentEditModal comment={comment} />}
-                            />
-                        </>
-                    )}
-                </div>
-            ))}
-        </div>
+        </div >
     );
 }
 
