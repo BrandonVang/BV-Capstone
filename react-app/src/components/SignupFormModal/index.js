@@ -21,26 +21,59 @@ function SignupFormModal() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		const newErrors = [];
+
 		if (!isValidEmail(email)) {
-			setErrors(["Please enter a valid email"]);
-			return;
+			newErrors.push("Please enter a valid email");
 		}
 
 		if (password.length < 8) {
-			setErrors(["Password must be at least 8 characters long"]);
+			newErrors.push("Password must be at least 8 characters long");
+		}
+
+		if (password !== confirmPassword) {
+			newErrors.push("Confirm Password field must match Password field");
+		}
+
+		if (newErrors.length > 0) {
+			setErrors(newErrors);
 			return;
 		}
 
-		if (password === confirmPassword) {
-			const data = await dispatch(signUp(username, email, password));
-			if (data) {
-				setErrors(data);
-			} else {
-				closeModal();
-			}
+		const data = await dispatch(signUp(username, email, password));
+		if (data) {
+			setErrors(data);
 		} else {
-			setErrors(["Confirm Password field must be the same as the Password field"]);
+			closeModal();
 		}
+	};
+
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		const newErrors = [...errors];
+
+		if (name === "email" && isValidEmail(value)) {
+			const emailErrorIndex = newErrors.indexOf("Please enter a valid email");
+			if (emailErrorIndex !== -1) {
+				newErrors.splice(emailErrorIndex, 1);
+			}
+		}
+
+		if (name === "password" && value.length >= 8) {
+			const passwordErrorIndex = newErrors.indexOf("Password must be at least 8 characters long");
+			if (passwordErrorIndex !== -1) {
+				newErrors.splice(passwordErrorIndex, 1);
+			}
+		}
+
+		if (name === "confirmPassword" && value === password) {
+			const confirmErrorIndex = newErrors.indexOf("Confirm Password field must match Password field");
+			if (confirmErrorIndex !== -1) {
+				newErrors.splice(confirmErrorIndex, 1);
+			}
+		}
+
+		setErrors(newErrors);
 	};
 
 
@@ -57,7 +90,11 @@ function SignupFormModal() {
 					<input
 						type="text"
 						value={email}
-						onChange={(e) => setEmail(e.target.value)}
+						onChange={(e) => {
+							setEmail(e.target.value);
+							handleInputChange(e);
+						}}
+						name="email"
 						placeholder="Email"
 						required
 					/>
@@ -66,7 +103,11 @@ function SignupFormModal() {
 					<input
 						type="text"
 						value={username}
-						onChange={(e) => setUsername(e.target.value)}
+						onChange={(e) => {
+							setUsername(e.target.value);
+							handleInputChange(e);
+						}}
+						name="username"
 						placeholder="Username"
 						required
 					/>
@@ -75,7 +116,11 @@ function SignupFormModal() {
 					<input
 						type="password"
 						value={password}
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={(e) => {
+							setPassword(e.target.value);
+							handleInputChange(e);
+						}}
+						name="password"
 						placeholder="Password"
 						required
 					/>
@@ -84,7 +129,11 @@ function SignupFormModal() {
 					<input
 						type="password"
 						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
+						onChange={(e) => {
+							setConfirmPassword(e.target.value);
+							handleInputChange(e);
+						}}
+						name="confirmPassword"
 						placeholder="Confirm Password"
 						required
 					/>
