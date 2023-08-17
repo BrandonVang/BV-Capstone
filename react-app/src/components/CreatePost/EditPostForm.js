@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllPosts, thunkEditPost, fetchFollowingPosts, fetchPostById } from '../../store/post';
+import { fetchAllPosts, thunkEditPost, fetchFollowingPosts, fetchPostById, fetchPostByCommunity } from '../../store/post';
 import { thunkAddMediaToPost, thunkDeleteMedia, thunkCreatePost } from '../../store/media';
 import { useModal } from '../../context/Modal';
 import DeleteIcon from '../Icons/DeleteIcon';
@@ -13,7 +13,6 @@ const EditPostForm = ({ post }) => {
     const [title, setTitle] = useState(post.title); // Set the initial title
     const [selectedCommunityId, setSelectedCommunityId] = useState(post.community.id); // Set the initial community id
     const userCommunities = useSelector(state => state.communities.userCommunities);
-
     const [content, setContent] = useState(post.content);
     const [media_file, setMedia_file] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
@@ -26,6 +25,7 @@ const EditPostForm = ({ post }) => {
         await dispatch(thunkDeleteMedia(mediaId));
         await dispatch(fetchFollowingPosts())
         await dispatch(fetchAllPosts());
+        await dispatch (fetchPostByCommunity(selectedCommunityId))
         const post2 = await dispatch(fetchPostById(post.id));
         setPost1(post2);
     }
@@ -61,6 +61,7 @@ const EditPostForm = ({ post }) => {
                 setMedia_file('');
                 setValidationErrors([]);
                 await dispatch(fetchAllPosts());
+                await dispatch(fetchPostByCommunity(selectedCommunityId))
                 closeModal();
             } catch (error) {
                 console.error("Error creating post:", error);

@@ -1,22 +1,46 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { thunkCreatePost, fetchAllPosts } from '../../store/post';
+import { thunkCreatePost, fetchAllPosts, fetchPostByCommunity } from '../../store/post';
 import { thunkAddMediaToPost } from '../../store/media';
 import { useModal } from '../../context/Modal';
 import "./CreatePostForm.css"
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 const CreateMediaForm = () => {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('');
     const [media_file, setMedia_file] = useState('');
-    const [validationErrors, setValidationErrors] = useState([]);
+    // const [validationErrors, setValidationErrors] = useState([]);
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal()
     const [selectedCommunityId, setSelectedCommunityId] = useState('');
     const userCommunities = useSelector(state => state.communities.userCommunities);
+    const allCommunities = useSelector(state => state.communities.allCommunity)
+    const [validationErrors, setValidationErrors] = useState({
+        selectedCommunityId: '',
+        title: '',
+        content: '',
+    });
 
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        const newErrors = { ...validationErrors };
+
+        if (name === "selectedCommunityId" && value) {
+            newErrors.selectedCommunityId = "";
+        }
+        if (name === "title" && value) {
+            newErrors.title = "";
+        }
+        if (name === "content" && value.length >= 5 && value.length <= 2000) {
+            newErrors.content = "";
+        }
+
+        setValidationErrors(newErrors);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -47,8 +71,9 @@ const CreateMediaForm = () => {
                 setContent('');
                 setMedia_file('');
                 setValidationErrors([]);
-                await dispatch(fetchAllPosts());
                 closeModal();
+                await dispatch(fetchAllPosts());
+                await dispatch(fetchPostByCommunity(selectedCommunityId))
             } catch (error) {
                 console.error("Error creating post:", error);
                 // Handle error if needed
@@ -58,13 +83,6 @@ const CreateMediaForm = () => {
         }
     };
 
-
-    // useEffect(() => {
-    //     const errors = [];
-    //     if (!content.length) errors.push("Content field is required");
-    //     if (content.length < 5 || content.length > 2000) errors.content = 'Content text must be more than 5 characters and less than 2000'
-    //     setValidationErrors(errors);
-    // },[content])
     return (
         <div className='form-container'>
             <form className='create-post-form' onSubmit={handleSubmit} encType="multipart/form-data" >
@@ -73,10 +91,14 @@ const CreateMediaForm = () => {
                     <select
                         className='Community-dropdown'
                         value={selectedCommunityId}
-                        onChange={(e) => setSelectedCommunityId(e.target.value)}
+                        onChange={(e) => {
+                            setSelectedCommunityId(e.target.value);
+                            handleInputChange(e); // Call the function to remove the error message
+                        }}
+                        name="selectedCommunityId"
                     >
                         <option value=''>Select a community</option>
-                        {userCommunities.map(community => (
+                        {Object.values(allCommunities).map(community => (
                             <option key={community.id} value={community.id}>
                                 {community.name}
                             </option>
@@ -90,7 +112,11 @@ const CreateMediaForm = () => {
                         placeholder='Title'
                         type='text'
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) => {
+                            setTitle(e.target.value);
+                            handleInputChange(e);
+                        }}
+                        name="title"
                     />
 
                 </div>
@@ -100,7 +126,11 @@ const CreateMediaForm = () => {
                     placeholder='Whats on your mind?'
                     type='text'
                     value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    onChange={(e) => {
+                        setContent(e.target.value);
+                        handleInputChange(e);
+                    }}
+                    name="content"
                 />
                 <div className='media-input'>
                     {/* <label
@@ -109,6 +139,7 @@ const CreateMediaForm = () => {
                         >
                             Upload Images
                         </label> */}
+                    <p>(Optional)</p>
                     <input
                         className='Post-Media-input'
                         id="image"

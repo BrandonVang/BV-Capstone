@@ -20,8 +20,14 @@ function SignupFormModal() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
 		if (!isValidEmail(email)) {
 			setErrors(["Please enter a valid email"]);
+			return;
+		}
+
+		if (password.length < 8) {
+			setErrors(["Password must be at least 8 characters long"]);
 			return;
 		}
 

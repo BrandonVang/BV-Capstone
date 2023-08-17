@@ -20,9 +20,9 @@
     margin-left: 10px;
     position: relative;
     height: 35px;
-    /* Add this to create a stacking context */
+    border: 1px solid transparent;
     z-index: 1;
-    /* Add this to ensure the dropdown-list appears below */
+
 }
 
 .dropdown-toggle:hover{
@@ -97,12 +97,15 @@
     align-items: center;
     height: 30px;
     border-radius: 5px;
-    border: none;
+    margin-right: 5px;
+    border: 1px solid transparent;
+    cursor: pointer;
     background: rgb(26, 26, 27);
 }
 
-.profile-log:hover{
-    border: 1px solid #333333;
+.profile-log:hover {
+    border-color: #333333;
+
 }
 
 

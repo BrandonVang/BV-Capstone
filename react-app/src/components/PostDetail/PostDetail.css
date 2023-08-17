@@ -69,6 +69,8 @@
 }
 
 .comment-submit {
+    display: flex;
+    justify-content: flex-end;
     width: 400px;
     height: 200px;
     background: rgb(26, 26, 27);
@@ -144,4 +146,14 @@
 .comment-error {
     color: red;
     margin-left: 20px;
+}
+
+.comment-reply-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 180px;
+}
+
+.detail-comment-container {
+    margin-bottom: 10px;
 }

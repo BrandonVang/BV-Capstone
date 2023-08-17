@@ -91,10 +91,12 @@ function PostDetailPage() {
                         <p className="detail-user">Posted by: {post.user.username}</p>
                     </div>
                     <h1 className="detail-title">{post.title}</h1>
-                    <img src={post.medias[0].media_url} alt="Post Media" className="detail-image" />
+                    {post.medias.length > 0 && (
+                        <img src={post.medias[0].media_url} alt="Post Media" className="detail-image" />
+                    )}
                     <p className="detail-content">{post.content}</p>
                 </div>
-                <p className="detail-comments-count"><i class='far fa-comment'></i> {posts.comments.length} Comments </p>
+                <p className="detail-comments-count"><i className='far fa-comment'></i> {posts.comments.length} Comments </p>
             </div>
             {currentUser ? (
                 <>
@@ -112,7 +114,7 @@ function PostDetailPage() {
                                     onChange={(e) => setCommentContent(e.target.value)}
                                 />
                             </div>
-                            <div><button className='comment-reply'>Comment</button></div>
+                            <div className="comment-reply-container"><button className='comment-reply'>Comment</button></div>
                         </form>
                     </div>
                 </>
@@ -131,7 +133,7 @@ function PostDetailPage() {
                 {
                     posts.comments.map((comment) => (
                         <div key={comment.id} className="detail-comment-container">
-                            <p className="detail-comment">Posted by: {comment.username}, {comment.post_date}</p>
+                            <p className="detail-comment">{comment.username}, {comment.post_date}</p>
                             <p className="detail-comments">{comment.content}</p>
 
                             {currentUser && currentUser.id === comment.user_id && (

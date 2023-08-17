@@ -25,7 +25,6 @@ function CommentEditModal({ comment}) {
             await dispatch(thunkEditComment(comment.id, comment_tobe_updated))
             await dispatch(fetchPostById(singlePost.id));
             await dispatch(fetchCommentsByPost(comment.post_id))
-            console.log("is...", comment.post_id)
             closeModal();
         } catch (error) {
             console.log(error)

@@ -53,9 +53,10 @@ function ProfileButton({ user }) {
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
-          <div>
-            <button onClick={handleLogout}>Log Out</button>
+          <div className="user-logout" onClick={handleLogout}>
+            Log Out
           </div>
+
         ) : (
           <>
             <div className="login-modal">

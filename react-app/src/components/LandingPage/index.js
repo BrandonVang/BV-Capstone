@@ -7,6 +7,7 @@ import Person from "../../images/person.jpg"
 import OpenModalButton from '../OpenModalButton';
 import CreateMediaForm from '../CreatePost/CreateMedia';
 import './PostIndex.css';
+import { fetchAllCommunities } from '../../store/community';
 
 const getPost = (state) => Object.values(state.posts.allPosts);
 
@@ -31,6 +32,7 @@ const PostIndex = () => {
 
     useEffect(() => {
         dispatch(fetchAllPosts());
+        dispatch(fetchAllCommunities())
     }, [dispatch]);
 
     const closeMenu = () => setShowMenu(false);
@@ -45,6 +47,8 @@ const PostIndex = () => {
                     />
                 ))}
             </div>
+
+
             <div className='post-sidebar'>
                 <div className='l-descri'>
                     <div className="person-logo-and-heading">
@@ -53,14 +57,15 @@ const PostIndex = () => {
                     </div>
                     <p>Your personal Reddit frontpage. Come here to check in with your favorite communities.</p>
 
-                    <OpenModalButton
-                        modalComponent={<CreateMediaForm />}
-                        onItemClick={closeMenu}
-                        className="create-post-button"
-                        buttonText="Create Post"
-                    >
-                    </OpenModalButton>
-
+                    {user && (
+                        <OpenModalButton
+                            modalComponent={<CreateMediaForm />}
+                            onItemClick={closeMenu}
+                            className="create-post-button"
+                            buttonText="Create Post"
+                        >
+                        </OpenModalButton>
+                    )}
                 </div>
             </div>
         </div>

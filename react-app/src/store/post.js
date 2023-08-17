@@ -8,6 +8,7 @@ const SET_POST = "posts/SET_POST";
 const UPDATE_POST = "posts/UPDATE_POST";
 const SET_CURRENT_POSTS = "posts/SET_CURRENT_POSTS";
 const SET_FOLLOWING_POSTS = "posts/SET_FOLLOWING_POSTS";
+const SET_COMMUNITY_POSTS = "posts/SET_COMMUNITY_POSTS";
 
 // Action Creators
 const setPosts = (posts) => ({
@@ -45,6 +46,12 @@ const removePost = (postId) => ({
     postId,
 });
 
+const setCommunityPosts = (community_id, posts) => ({
+    type: SET_COMMUNITY_POSTS,
+    community_id,
+    posts,
+});
+
 export const fetchAllPosts = () => async (dispatch) => {
     const response = await fetch("/api/posts/all");
     if (response.ok) {
@@ -72,9 +79,8 @@ export const fetchFollowingPosts = () => async (dispatch) => {
 export const fetchPostByCommunity = (community_id) => async (dispatch) => {
     const response = await fetch(`/api/posts/community/${community_id}`);
     if (response.ok) {
-        const { post } = await response.json()
-        dispatch(setPost(post))
-        return post
+        const { posts } = await response.json()
+        dispatch(setCommunityPosts(community_id, posts));
     }
 }
 
@@ -160,7 +166,8 @@ const initialState = {
     allPosts: {},
     currentPosts: {},
     singlePost: {},
-    userCommunities: {}
+    userCommunities: {},
+    communityPosts: {},
 };
 
 // selectors
@@ -170,7 +177,7 @@ export const getCurrentPosts = (state) =>
     Object.values(state.posts.currentPosts);
 
 export const getJoinedCommunitiesPosts = (state) =>
-    Object.values(state.posts.userCommunities);
+    Object.values(state.posts.communityPosts);
 
 export const getOnePost = (spotId) => (state) => state.posts.singlePost;
 
@@ -197,9 +204,9 @@ export default function postsReducer(state = initialState, action) {
                 currentPosts: currentPostsState,
             };
         case SET_FOLLOWING_POSTS:
-            let followingPostsState = { ...state, followingPosts: {} };
+            let followingPostsState = { ...state, communityPosts: {} };
             action.posts.forEach((post) => {
-                followingPostsState.followingPosts[post.id] = post;
+                followingPostsState.communityPosts[post.id] = post;
             });
             return followingPostsState;
         case ADD_POST:
@@ -210,6 +217,15 @@ export default function postsReducer(state = initialState, action) {
                     [action.post.id]: action.post,
                 },
             };
+
+        case SET_COMMUNITY_POSTS:
+            return {
+                ...state,
+                communityPosts: {
+                    ...state.communityPosts,
+                    [action.community_id]: action.posts,
+                },
+            };
         case UPDATE_POST:
             const updatedPost =
                 state.singlePost.id === action.post.id ? action.post : state.singlePost;
@@ -218,7 +234,7 @@ export default function postsReducer(state = initialState, action) {
                 allPosts: { ...state.allPosts, [action.post.id]: action.post },
                 singlePost: updatedPost,
             };
-        case REMOVE_POST:
+      case REMOVE_POST:
             const newState = { ...state.allPosts };
             delete newState[action.postId];
             return { ...state, allPosts: newState };

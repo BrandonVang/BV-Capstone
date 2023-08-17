@@ -27,7 +27,6 @@ export const fetchAllCommunities = () => async (dispatch) => {
     const response = await fetch(`/api/community/`)
     if (response.ok) {
         const community = await response.json()
-        console.log("test", community)
         dispatch(setAllCommunities(community))
     }
 }

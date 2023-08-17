@@ -35,8 +35,10 @@
   align-items: center;
   border: 1px solid #333333;
   background: rgb(26, 26, 27);
-  z-index: 100; /* Add a higher z-index value */
+  z-index: 100;
+  /* Add a higher z-index value */
 }
+
 .nav {
   display: flex;
   align-items: center;
@@ -130,6 +132,7 @@
 
 .user-logout {
   cursor: pointer;
+  color: white;
 }
 
 

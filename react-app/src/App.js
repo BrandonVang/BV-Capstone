@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import PostIndex from "./components/LandingPage";
 import PostDetailPage from "./components/PostDetail/PostDetail";
 import './styles/main.css'
+import CommunityPosts from "./components/FilterPost/FilterPost";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={PostIndex} />
           <Route exact path="/posts/:postId" component={PostDetailPage} />
+          <Route exact path="/posts/community/:communityId" component={CommunityPosts} />
           <Route path="/login" >
             <LoginFormPage />
           </Route>

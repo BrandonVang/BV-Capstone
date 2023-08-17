@@ -3,7 +3,7 @@ import './DeleteConfirmModal.css';
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { thunkDeletePostById, fetchFollowingPosts, fetchAllPosts, fetchPostById } from '../../store/post';
+import { thunkDeletePostById, fetchFollowingPosts, fetchAllPosts, fetchPostById, fetchPostByCommunity } from '../../store/post';
 import { thunkRemoveComment, fetchCommentsByPost } from '../../store/comment';
 import { fetchLoggiedInUserCommunities, fetchAllCommunities } from "../../store/community";
 import { thunkDeleteMedia } from '../../store/media'
@@ -23,9 +23,8 @@ function DeleteConfirmModal({ comments, post, type }) {
         try {
             await dispatch(thunkRemoveComment(commentId));
             closeModal();
-            await dispatch(fetchPostById(post.id));
             await dispatch(fetchCommentsByPost(comments.post_id))
-            console.log(" what is this", post.id)
+            await dispatch(fetchPostById(post.id));
         } catch (error) {
             console.log(error);
         }
@@ -35,9 +34,10 @@ function DeleteConfirmModal({ comments, post, type }) {
     const handleDeletePost = async (post) => {
         try {
             await dispatch(thunkDeletePostById(post));
+            await dispatch(fetchFollowingPosts());
+            await dispatch(fetchPostByCommunity(post.community.id))
+            await dispatch(fetchAllPosts());
             closeModal();
-            dispatch(fetchFollowingPosts());
-            dispatch(fetchAllPosts());
         } catch (error) {
             console.log(error);
         }
