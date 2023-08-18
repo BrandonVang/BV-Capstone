@@ -35,9 +35,9 @@ const PostIndexItem = ({ post, fromPath }) => {
 
 
                     <div className='post-index-item-menu'>
-                        <div className='title-bar-follow-cont'>
+                        {/* <div className='title-bar-follow-cont'>
                             <span className='title-bar-follow'>Join</span>
-                        </div>
+                        </div> */}
                         <i className="fas fa-ellipsis-h"></i>
 
 

@@ -1,0 +1,27 @@
+.about-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+}
+
+.about-containers {
+
+}
+
+.fa-github,
+.fa-linkedin,
+.fa-envelope {
+    margin-left: 5px;
+    color: white
+}
+
+.about-text {
+    color: white
+}
+
+.fa-github:hover,
+.fa-linkedin:hover,
+.fa-envelope:hover {
+    color: white;
+}

@@ -130,17 +130,21 @@
 .edit-icon-container {
     margin-left: 5px;
     cursor: pointer;
+    border: 1px solid transparent;
+    color: white;
 }
 
 .delete-icon-container {
     margin-left: 5px;
     cursor: pointer;
-
+    border: 1px solid transparent;
+    color:  white;
 }
+
 
 .edit-icon-container:hover,
 .delete-icon-container:hover {
-    border: 1px solid #333333;
+    border-color: #333333
 }
 
 .comment-error {
