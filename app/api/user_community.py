@@ -40,7 +40,7 @@ def add_following(community_id):
     community = Community.query.get(community_id)
 
     if community in current_user.communities_joined:
-        return "You are already a member of this community"
+        return jsonify({'error': "You are already a member of this community"}), 400
 
     current_user.communities_joined.append(community)
     db.session.commit()

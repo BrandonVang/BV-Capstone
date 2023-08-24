@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { fetchAllCommunities, fetchLoggiedInUserCommunities } from '../../store/community';
@@ -11,20 +11,38 @@ const DropdownMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     const userCommunities = useSelector(state => state.communities.userCommunities);
+    const dropdownRef = useRef(null);
+
 
 
     useEffect(() => {
         if (sessionUser) {
             dispatch(fetchLoggiedInUserCommunities());
         }
+
+        const closeDropdown = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('click', closeDropdown);
+
+        return () => {
+            document.removeEventListener('click', closeDropdown);
+        };
     }, [dispatch]);
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
 
+    const handleCommunityClick = () => {
+        setIsOpen(false);
+    };
+
     return (
-        <div className="dropdown-menu">
+        <div className="dropdown-menu" ref={dropdownRef}>
             <button className="dropdown-toggle" onClick={toggleDropdown}>
                 <i className='fa fa-home'></i>
                 <p className='home-desc'> Home </p>
@@ -36,7 +54,7 @@ const DropdownMenu = () => {
                 <ul className="dropdown-list">
                     {userCommunities.map(community => (
                         <div key={community.id}>
-                            <Link to={`/posts/community/${community.id}`}>{community.name}</Link>
+                            <Link to={`/posts/community/${community.id}`} onClick={handleCommunityClick}>{community.name}</Link>
                         </div>
                     ))}
                 </ul>

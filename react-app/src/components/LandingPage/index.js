@@ -8,6 +8,7 @@ import OpenModalButton from '../OpenModalButton';
 import CreateMediaForm from '../CreatePost/CreateMedia';
 import './PostIndex.css';
 import { fetchAllCommunities } from '../../store/community';
+import { fetchUserLikes } from '../../store/like';
 
 const getPost = (state) => Object.values(state.posts.allPosts);
 
@@ -33,7 +34,14 @@ const PostIndex = () => {
     useEffect(() => {
         dispatch(fetchAllPosts());
         dispatch(fetchAllCommunities())
-    }, [dispatch]);
+        if (user) {
+            try {
+                dispatch(fetchUserLikes(user.id));
+            } catch (e) {
+                return
+            }
+        }
+    }, [dispatch, user]);
 
     const closeMenu = () => setShowMenu(false);
 

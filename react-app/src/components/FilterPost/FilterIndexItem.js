@@ -1,16 +1,16 @@
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkDeletePostById } from '../../store/post';
-import OpenModalMenuItem from './OpenModalMenuItem'
+import OpenModalMenuItem from '../LandingPage/OpenModalMenuItem';
 import DeleteConfirmModal from '../Delete';
 import EditPostForm from '../CreatePost/EditPostForm';
-import './PostIndex.css';
+import '../LandingPage/PostIndex.css';
 import { fetchFollowingPosts, fetchAllPosts } from '../../store/post';
 import { fetchLoggiedInUserCommunities, fetchRemoveCommunities, fetchAddCommunities, fetchAllCommunities } from '../../store/community';
 import React, { useState } from 'react';
 import Likes from '../Likes';
 
-const PostIndexItem = ({ post, fromPath }) => {
+const FilterIndexItem = ({ post, fromPath }) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const getCurrentUser = (state) => state.session.user;
@@ -174,4 +174,4 @@ const PostIndexItem = ({ post, fromPath }) => {
     );
 };
 
-export default PostIndexItem;
+export default FilterIndexItem;
