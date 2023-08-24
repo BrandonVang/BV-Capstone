@@ -8,6 +8,7 @@ import OpenModalButton from '../OpenModalButton';
 import CreateMediaForm from '../CreatePost/CreateMedia';
 import './PostIndex.css';
 import { fetchAllCommunities } from '../../store/community';
+import About from '../About/Footer';
 import { fetchUserLikes } from '../../store/like';
 
 const getPost = (state) => Object.values(state.posts.allPosts);
@@ -74,8 +75,13 @@ const PostIndex = () => {
                         >
                         </OpenModalButton>
                     )}
+                    <div className='about-foot'>
+
+                        <About />
+                    </div>
                 </div>
             </div>
+
         </div>
     );
 };
