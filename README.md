@@ -1,148 +1,220 @@
-# BV-Capstone
-
-This is the starter for the Flask React project.
-
-## Getting started
-1. Clone this repository (only this branch)
-
-2. Install dependencies
-
-      ```bash
-      pipenv install -r requirements.txt
-      ```
-
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-
-4. Make sure the SQLite3 database connection URL is in the **.env** file
-
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
-
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
-
-   ```bash
-   pipenv shell
-   ```
-
-   ```bash
-   flask db upgrade
-   ```
-
-   ```bash
-   flask seed all
-   ```
-
-   ```bash
-   flask run
-   ```
-
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+# Bluedit <Social-Media-Forum-Service>
 
 
-## Deployment through Render.com
+## Introduction
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
+Bluedit is a Reddit replica. is a platform where users can make posts, engage in discussion through comments,  and share specific topics related to the community. 
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
 
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
 
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
+## Link To Website
 
-### Part A: Configure the Start and Build Commands
+https://bv-capstone-bluedit.onrender.com/
 
-Start by giving your application a name.
 
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
+##Feature List
 
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
 
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
+## 1. New account creation, log in, log out, and guest/demo log in
 
-For your Flask project, enter the following command into the Build field, all in
-one line:
+* Users can sign up, log in, and log out.
+* Users can use a demo login to try the site.
+* Users can't use certain features without logging in (like posting, commenting, liking, and following).
+* Logged in users are directed to their profile page which displays their posts and details.
+* Logged out users are directed to a landing page showcasing trending or recent posts.
 
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
+## 2. Posts
 
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
+* Users can create, update, and delete posts.
+* Posts can contain text or images.
+* Each post displays its author, content, timestamp, and associated likes.
+* Users can navigate to a detailed view of a post which includes its comments.
+* The main feed displays posts from all users or just from those a user follows, by changing tab.
 
-Now, add your start command in the Start field:
+## 3. Comments
 
-```shell
-# start script
-gunicorn app:app
-```
+* Users can comment on any post.
+* Users can update or delete their own comments.
+* Each comment displays its author and content.
+* Comments are displayed beneath the post they are associated with.
 
-_If you are using websockets, use the following start command instead for increased performance:_
+## 4. Likes
 
-`gunicorn --worker-class eventlet -w 1 app:app`
+* Users can like and dislike posts.
+* Each post displays a count of its likes.
 
-### Part B: Add the Environment Variables
 
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
+## 5. Community
 
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
+* Users can join and unjoin other communities.
+* Users have a drop-down menu of the community they have joined under Home
+* User can go to that specific community and display feeds only for that community
 
-Add the following keys and values in the Render GUI form:
 
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
+## 6. (Bonus Search Filter)
 
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
+* Filter out posts on what is submitted
 
-Add the following keys and values:
+## 7. (Bonus Notifications)
 
-- DATABASE_URL (copy value from Internal Database URL field)
+* Notify the user when a new post is made on the community they joined
 
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
+##Database Schema
 
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
+![schema](https://github.com/BrandonVang/BV-Capstone/assets/126208956/75e11d89-4518-4d5e-a3d1-ff3ba992eaa7)
 
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
 
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
+## API Documentation
 
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+## Authentication
+
+* Users can check if they're authenticated.
+  - `GET api/auth`
+
+* Users can log in.
+  - `POST api/auth/login`
+
+* Users can log out.
+  - `POST api/auth/login`
+
+* Users can sign up.
+  - `POST api/auth/signup`
+
+* An unauthorized endpoint to handle authentication failures.
+  - `POST api/auth/unauthorized`
+
+---
+
+## Session
+
+* Users can view all users.
+  - `GET api/posts`
+
+* Users can retrieve a specific user by their ID.
+  - `GET api/users/<id>`
+
+---
+
+## Posts
+
+* Users can view all posts.
+  - `GET api/posts/all`
+
+* Users can retrieve all posts created by the current logged-in user.
+
+  - `GET api/posts/current`
+
+* Users can retrieve a specific post by its ID.
+
+  - `GET api/posts/<post_id>`
+
+* Users can create a post.
+  - `POST api/posts`
+
+* Users can update a specific post by its ID.
+  - `PUT api/posts/<post_id>`
+
+* Users can delete a specific post by its ID.
+  - `DELETE api/posts/<post_id>`
+
+* Users can add media to a specific post by its ID.
+  - `POST api/posts/<post_id>/medias`
+
+* Users can delete a specific media by its ID.
+  - `DELETE api/medias/<id>`
+
+---
+
+## Comments
+
+* Users can retrieve all comments for a specific post.
+  - `GET api/comments/<post_id>`
+
+* Users can add a comment to a specific post.
+  - `POST api/comments/<post_id>/new`
+
+* Users can update a specific comment on a post.
+  - `PUT api/comments/<comment_id>`
+
+* Users can delete a specific comment from a post.
+  - `DELETE api/comments/<comment_id>`
+
+
+
+## Likes
+
+* Users can retrieve all dislikes given by the currently logged-in user.
+  - `GET api/likes/users/current/dislikes`
+
+* Users can retrieve all likes given by the currently logged-in user.
+  - `GET api/likes/users/current/likes`
+
+* Users can like a specific post.
+  - `POST api/likes/<post_id>/likes`
+
+* Users can unlike a specific post.
+  - `DELETE api/likes/<like_id>`
+
+---
+
+## Community
+
+* Logged-in users can retrieve a list of communities they have joined.
+  - `GET api/follows/following`
+
+* Logged-in users can join a community.
+  - `POST api/follows/<user_id>`
+
+* Logged-in users can leave a community.
+  - `DELETE api/follows/<user_id>`
+ 
+## React Components
+
+./About/ ./Footer/ ./auth/ ./CreateMedia/ ./CreatePost/ ./EditPostForum/ ./DeleteIndex/ ./FilterPost/ ./Icons/ ./Joined/ ./PostIndex/ ./Likes/ ./LoginFormPage/ ./LoginFormModal/ ./Navigation/ ./SignupFormPage/ ./OpenModalButton/ ./SignupFormModal/ ./PostDetail/
+
+##Redux Store
+
+```store = {
+  session: {},
+  posts: {
+     allPosts: {},
+     currentPost:{},
+     singlePost: {},
+  },
+
+  comments: {
+   
+    post: {
+     postData
+    },
+    user: {
+     userData
+    },
+  },
+communities: {
+   allCommunities: {},
+   userCommunities: {}
+}
+
+likes: {
+     postLikes: [],
+    userLikes: [],
+   },
+};```
+
+
+##Techology
+
+Flas/ React/ Redux/ sqlAclhemy/ postgreSQL/ AWS S3
+
+##Development Challenges:
+
+- Community post-filtering
+      - Redux**: Maintaining the redux store and updating it once a new community post is added or deleted
+
+
+## Profiles
+BrandonVang;
+LinkedIn: 'https://www.linkedin.com/in/brandon-vang-a80518171/',
+GitHub: 'https://github.com/BrandonVang',
+email: 'vang.brandon94@gmail.com',
