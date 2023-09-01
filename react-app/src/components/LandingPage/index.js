@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import PostIndexItem from './indexitem';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllPosts } from '../../store/post';
@@ -9,7 +9,7 @@ import CreateMediaForm from '../CreatePost/CreateMedia';
 import './PostIndex.css';
 import { fetchAllCommunities } from '../../store/community';
 import About from '../About/Footer';
-import { fetchUserLikes } from '../../store/like';
+import { fetchUserLikes, fetchPostLikes } from '../../store/like';
 
 const getPost = (state) => Object.values(state.posts.allPosts);
 
@@ -19,6 +19,7 @@ const PostIndex = () => {
     const history = useHistory();
     const path = window.location.pathname;
     const posts = useSelector(getPost);
+    const {postId} = useParams()
     // const currentSpots = posts.filter(post => post.user.id === user.id);
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);

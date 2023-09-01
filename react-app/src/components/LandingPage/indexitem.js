@@ -41,7 +41,10 @@ const PostIndexItem = ({ post, fromPath }) => {
     };
 
     const isUserFollowing = (communityId) => {
-        return loggedInUserFollowing.some((followedUser) => followedUser.id === communityId);
+        if (Array.isArray(loggedInUserFollowing)) {
+            return loggedInUserFollowing.some((followedUser) => followedUser.id === communityId);
+        }
+        return false;
     };
 
     // Check if it's the user's own post
