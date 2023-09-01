@@ -9,7 +9,7 @@ import { fetchCommentsByPost } from "../../store/comment";
 
 const Likes = ({ post }) => {
     const dispatch = useDispatch();
-    const userLikes = useSelector((state) => state.likes.userLikes);
+    const userLikes = useSelector((state) => state.likes.userLikes || []); // Ensure userLikes is an array
     const loggedInUserId = useSelector((state) => state.session.user && state.session.user.id);
     // const post = useSelector((state) => state.posts.postId)
 
