@@ -25,7 +25,7 @@
 
 }
 
-.dropdown-toggle:hover{
+.dropdown-toggle:hover {
     border: 1px solid #333333;
 }
 
@@ -51,6 +51,7 @@
     width: 20px;
     background-color: white;
     margin-right: 5px;
+    border-radius: 5px;
 }
 
 .dropdown-list {
@@ -131,4 +132,10 @@
     font-weight: bold;
     cursor: pointer;
     color: white;
+}
+
+
+.fa-bars {
+    color: white;
+    font-size: 18px;
 }

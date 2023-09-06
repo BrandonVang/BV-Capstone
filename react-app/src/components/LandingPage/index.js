@@ -10,6 +10,7 @@ import './PostIndex.css';
 import { fetchAllCommunities } from '../../store/community';
 import About from '../About/Footer';
 import { fetchUserLikes, fetchPostLikes } from '../../store/like';
+import Profile from '../../images/profile.png'
 
 const getPost = (state) => Object.values(state.posts.allPosts);
 
@@ -19,7 +20,7 @@ const PostIndex = () => {
     const history = useHistory();
     const path = window.location.pathname;
     const posts = useSelector(getPost);
-    const {postId} = useParams()
+    const { postId } = useParams()
     // const currentSpots = posts.filter(post => post.user.id === user.id);
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
@@ -49,7 +50,28 @@ const PostIndex = () => {
 
     return (
         <div className='home-wrapper'>
+
             <div className='post-index-all'>
+                {user && (
+                    <div className='create-post-button-wrapper'>
+                        <>
+
+                            <div className="avatar-area">
+                                <img src={Profile} alt="User Avatar" className='user-avatar' />
+                            </div>
+
+                            {/* Create Post button */}
+                            <OpenModalButton
+                                modalComponent={<CreateMediaForm />}
+                                onItemClick={closeMenu}
+                                className="create-post-sec"
+                                buttonText="Create Post"
+                            >
+                                Create Post
+                            </OpenModalButton>
+                        </>
+                    </div>
+                )}
                 {posts.map((post, index) => (
                     <PostIndexItem
                         post={post}

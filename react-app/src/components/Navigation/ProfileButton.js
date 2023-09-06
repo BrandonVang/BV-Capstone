@@ -43,13 +43,20 @@ function ProfileButton({ user }) {
   return (
     <div>
       <button className="profile-log" onClick={openMenu}>
-        <img className="profile-icon" src={Logo} />
-        {sessionUser &&
-          <div className="profile-username">{user.username}</div>
-        }
-        <div className="profile-down-arrow">
-          <i className="fas fa-angle-down angle-icon"></i>
-        </div>
+        {sessionUser ? (
+          <>
+            <img className="profile-icon" src={Logo} />
+            <div className="profile-username">{user.username}</div>
+            <div className="profile-down-arrow">
+              <i className="fas fa-angle-down angle-icon"></i>
+            </div>
+          </>
+        ) : (
+          <div className="profile-menu-option">
+
+              <i className=" fas fa-solid fa-bars"></i>
+          </div>
+        )}
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (

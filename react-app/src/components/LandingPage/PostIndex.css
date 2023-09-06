@@ -10,7 +10,7 @@
     flex-direction: column;
     justify-content: center;
     padding: 10px;
-    gap: 20px;
+    gap: 10px;
 }
 
 .post-title {
@@ -82,7 +82,7 @@
     text-decoration: none;
 }
 
-.community:hover{
+.community:hover {
     text-decoration: underline;
 }
 
@@ -188,7 +188,7 @@ svg.content-menu {
     align-items: column;
     flex: 0 0 20%;
     height: 300px;
-    width: 500px;
+    border-radius: 5px;
     /* Adjust the width value as needed */
     border: 1px solid #333333;
     background: rgb(26, 26, 27);
@@ -200,7 +200,7 @@ svg.content-menu {
     flex-direction: column;
     align-items: flex-start;
     padding: 0 16px;
-    border: 1px solid #333333;
+    border-radius: 5px;
     color: white;
     background: rgb(26, 26, 27);
     width: 200px;
@@ -243,4 +243,73 @@ svg.content-menu {
     cursor: pointer;
     border-radius: 5px;
     border: none;
+}
+
+.create-post-sec {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 16px;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    color: #333333;
+    background: rgb(26, 26, 27);
+    width: 400px;
+    height: 40px;
+}
+
+.create-post-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    color: white;
+    background: rgb(26, 26, 27);
+    height: 50px;
+}
+
+.avatar-area {
+    display: flex;
+    justify-content: center;
+    margin-right: 10px;
+    border: 10px;
+
+}
+
+.user-avatar {
+    width: 40px;
+    background-color: white;
+    margin-right: 5px;
+    border-radius: 15px;
+}
+
+.community-rules {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 16px;
+    border: 1px solid #333333;
+    color: white;
+    background: rgb(26, 26, 27);
+    border-radius: 5px;
+    width: 200px;
+    height: 290px;
+    margin-top: 20px;
+
+}
+
+.rules {
+    list-style: none;
+
+}
+
+.rules li {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #333333;
+}
+
+.community-rules ul {
+    padding: 0;
+    margin: 0;
 }
