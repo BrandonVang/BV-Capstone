@@ -1,12 +1,16 @@
 .home-wrapper {
+    box-sizing: border-box;
     display: flex;
+    flex-direction: row;
+    justify-content: center;
     padding: 50px 0;
-    width: 750px
+    width: 100%;
 }
+
+
 
 .post-index-all {
     display: flex;
-    flex: 1;
     flex-direction: column;
     justify-content: center;
     padding: 10px;
@@ -185,11 +189,8 @@ svg.content-menu {
 
 .post-sidebar {
     display: flex;
-    align-items: column;
-    flex: 0 0 20%;
     height: 300px;
     border-radius: 5px;
-    /* Adjust the width value as needed */
     border: 1px solid #333333;
     background: rgb(26, 26, 27);
     margin-top: 10px;
@@ -285,9 +286,6 @@ svg.content-menu {
 }
 
 .community-rules {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     padding: 0 16px;
     border: 1px solid #333333;
     color: white;

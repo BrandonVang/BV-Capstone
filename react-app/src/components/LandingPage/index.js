@@ -50,34 +50,36 @@ const PostIndex = () => {
 
     return (
         <div className='home-wrapper'>
+            <div className='content'>
 
-            <div className='post-index-all'>
-                {user && (
-                    <div className='create-post-button-wrapper'>
-                        <>
+                <div className='post-index-all'>
+                    {user && (
+                        <div className='create-post-button-wrapper'>
+                            <>
 
-                            <div className="avatar-area">
-                                <img src={Profile} alt="User Avatar" className='user-avatar' />
-                            </div>
+                                <div className="avatar-area">
+                                    <img src={Profile} alt="User Avatar" className='user-avatar' />
+                                </div>
 
-                            {/* Create Post button */}
-                            <OpenModalButton
-                                modalComponent={<CreateMediaForm />}
-                                onItemClick={closeMenu}
-                                className="create-post-sec"
-                                buttonText="Create Post"
-                            >
-                                Create Post
-                            </OpenModalButton>
-                        </>
-                    </div>
-                )}
-                {posts.map((post, index) => (
-                    <PostIndexItem
-                        post={post}
-                        key={index}
-                    />
-                ))}
+                                {/* Create Post button */}
+                                <OpenModalButton
+                                    modalComponent={<CreateMediaForm />}
+                                    onItemClick={closeMenu}
+                                    className="create-post-sec"
+                                    buttonText="Create Post"
+                                >
+                                    Create Post
+                                </OpenModalButton>
+                            </>
+                        </div>
+                    )}
+                    {posts.map((post, index) => (
+                        <PostIndexItem
+                            post={post}
+                            key={index}
+                        />
+                    ))}
+                </div>
             </div>
 
 
@@ -104,8 +106,8 @@ const PostIndex = () => {
                     </div>
                 </div>
             </div>
-
         </div>
+
     );
 };
 
