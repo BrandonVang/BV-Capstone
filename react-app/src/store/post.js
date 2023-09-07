@@ -9,6 +9,7 @@ const UPDATE_POST = "posts/UPDATE_POST";
 const SET_CURRENT_POSTS = "posts/SET_CURRENT_POSTS";
 const SET_FOLLOWING_POSTS = "posts/SET_FOLLOWING_POSTS";
 const SET_COMMUNITY_POSTS = "posts/SET_COMMUNITY_POSTS";
+const SET_SEARCH_POSTS = "posts/SET_SEARCH_POSTS";
 
 // Action Creators
 const setPosts = (posts) => ({
@@ -52,6 +53,13 @@ const setCommunityPosts = (community_id, posts) => ({
     posts,
 });
 
+
+const setSearchPosts = (posts) => ({
+    type: SET_SEARCH_POSTS,
+    posts,
+});
+
+
 export const fetchAllPosts = () => async (dispatch) => {
     const response = await fetch("/api/posts/all");
     if (response.ok) {
@@ -67,6 +75,16 @@ export const fetchCurrentPosts = () => async (dispatch) => {
         return dispatch(setCurrentPosts(posts));
     }
 };
+
+
+export const fetchSearchPosts = (keword) => async (dispatch) => {
+    const response = await fetch(`/api/posts/search?keyword=${keword}`);
+    if (response.ok) {
+        const { posts } = await response.json();
+        await dispatch(setSearchPosts(posts));
+    }
+};
+
 
 export const fetchFollowingPosts = () => async (dispatch) => {
     const response = await fetch("/api/posts/community");
@@ -168,6 +186,7 @@ const initialState = {
     singlePost: {},
     userCommunities: {},
     communityPosts: {},
+    searchPosts: {},
 };
 
 // selectors
@@ -180,6 +199,9 @@ export const getJoinedCommunitiesPosts = (state) =>
     Object.values(state.posts.communityPosts);
 
 export const getOnePost = (spotId) => (state) => state.posts.singlePost;
+
+export const getSearchPosts = (state) =>
+    Object.values(state.posts.searchPosts);
 
 export default function postsReducer(state = initialState, action) {
     switch (action.type) {
@@ -234,10 +256,16 @@ export default function postsReducer(state = initialState, action) {
                 allPosts: { ...state.allPosts, [action.post.id]: action.post },
                 singlePost: updatedPost,
             };
-      case REMOVE_POST:
+        case REMOVE_POST:
             const newState = { ...state.allPosts };
             delete newState[action.postId];
             return { ...state, allPosts: newState };
+        case SET_SEARCH_POSTS:
+            let searchPostsState = { ...state, searchPosts: {} };
+            action.posts.forEach((post) => {
+                searchPostsState.searchPosts[post.id] = post;
+            });
+            return searchPostsState
         default:
             return state;
     }

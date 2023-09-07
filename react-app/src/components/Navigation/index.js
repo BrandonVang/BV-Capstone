@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
@@ -9,22 +9,26 @@ import DropdownMenu from './DropDownMenu';
 import OpenModalButton from '../OpenModalButton';
 import CreatePostForm from '../CreatePost/CreatePost';
 import CreateMediaForm from '../CreatePost/CreateMedia';
-
+import { fetchSearchPosts } from '../../store/post';
 
 function Navigation({ isLoaded }) {
-	// const dispatch = useDispatch();
+	const dispatch = useDispatch();
+	const history = useHistory();
 	const sessionUser = useSelector(state => state.session.user);
 	const [searchInput, setSearchInput] = useState('');
 	// const userCommunities = useSelector(state => state.communities.userCommunities);
 	const [showMenu, setShowMenu] = useState(false);
 
-	const handleReserveClick = () => {
-		alert('Feature coming soon');
+
+	const handleSearchClick = async (e) => {
+		e.preventDefault();
+		dispatch(fetchSearchPosts(searchInput)).then(history.push("/search"))
 	};
 
 	const handleSearchChange = (e) => {
 		setSearchInput(e.target.value);
 	};
+
 
 	const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 	const closeMenu = () => setShowMenu(false);
@@ -44,7 +48,7 @@ function Navigation({ isLoaded }) {
 				}
 
 			</div>
-			<form className="search-bar" onSubmit={handleReserveClick}>
+			<form className="search-bar" onSubmit={handleSearchClick}>
 				<input
 					type="text"
 					value={searchInput}
