@@ -30,6 +30,11 @@ def seed_users():
     db.session.add(bobbie)
     db.session.add(test)
     db.session.add(dummy)
+    db.session.add(dummy1)
+    db.session.add(dummy2)
+    db.session.add(dummy3)
+    db.session.add(dummy4)
+    db.session.add(dummy5)
     db.session.commit()
 
 
