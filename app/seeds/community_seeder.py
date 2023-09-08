@@ -4,19 +4,23 @@ from sqlalchemy.sql import text
 
 def seed_community():
     com1 = Community(
-        name="Dogs"
+        name="Dogs",
+        user_id="1"
     )
 
     com2 = Community(
-        name="Games"
+        name="Games",
+        user_id="1"
     )
 
     com3 = Community(
-        name="Sports"
+        name="Sports",
+        user_id="1"
     )
 
     com4 = Community(
-        name="Jokes"
+        name="Jokes",
+        user_id="1"
     )
 
     all_community = [com1, com2, com3, com4]

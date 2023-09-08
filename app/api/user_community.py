@@ -84,8 +84,8 @@ def create_community():
     if existing_community:
         return jsonify({'error': 'A community with this name already exists'}), 400
 
-    # Create a new community
-    new_community = Community(name=data['name'])
+    # Create a new community with the user_id of the current user
+    new_community = Community(name=data['name'], user_id=current_user.id)
     db.session.add(new_community)
 
     # Add the current user as a member of the new community
@@ -95,3 +95,28 @@ def create_community():
 
     return jsonify({'message': f'Community {new_community.name} created successfully'}), 201
 
+
+
+@communities_routes.route('/<int:community_id>/remove', methods=['DELETE'])
+@login_required
+def delete_community(community_id):
+    '''
+    Delete a community.
+    '''
+    community = Community.query.get(community_id)
+
+    if not community:
+        return {"error": "Community not found"}, 404
+
+    # Check if the current user is the creator or an admin of the community
+    if current_user.id != community.user_id and not current_user.is_admin:
+        return {"error": "You do not have permission to delete this community"}, 403
+
+    # Remove all members from the community (optional, depending on your requirements)
+    community.members.clear()
+
+    # Delete the community
+    db.session.delete(community)
+    db.session.commit()
+
+    return {'message': f"The {community.name} community has been deleted"}

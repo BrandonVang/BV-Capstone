@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     comments = db.relationship("Comment", back_populates="users")
     likes = db.relationship("Like", back_populates="users")
     dislikes = db.relationship("Dislike", back_populates="users")
+    community = db.relationship("Community", back_populates="users", cascade="all, delete")
 
     # Relationship with communities (self-referential)
     communities_joined = db.relationship(

@@ -10,8 +10,9 @@ class Community(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
-
+    users = db.relationship("User", back_populates="community")
     posts = db.relationship("Post", back_populates="community", cascade="all, delete")
 
     members = db.relationship(
@@ -23,5 +24,6 @@ class Community(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "name": self.name
+            "name": self.name,
+            "user_id": self.user_id
         }
