@@ -8,7 +8,7 @@ dislike_routes = Blueprint('dislikes', __name__)
 @dislike_routes.route('/<int:post_id>',methods=['GET'])
 def get_post_likes(post_id):
     '''
-    get post's likes
+    get post's dislikes
     '''
     post_dislikes = Dislike.query.filter_by(post_id=post_id).all()
     response_post_dislikes=[dislike.to_dict() for dislike in post_dislikes]
@@ -17,7 +17,7 @@ def get_post_likes(post_id):
 @dislike_routes.route('/users/<int:user_id>',methods=['GET'])
 def get_specific_user_likes(user_id):
     '''
-    get specific user likes
+    get specific user dislikes
     '''
     user_dislikes = Dislike.query.filter_by(user_id=user_id).all()
     response_user_dislikes=[dislike.to_dict() for dislike in user_dislikes]
@@ -27,17 +27,17 @@ def get_specific_user_likes(user_id):
 @login_required
 def get_user_likes():
     '''
-    get users likes
+    get users dislikes
     '''
     user_dislikes = Dislike.query.filter_by(user_id=current_user.id).all()
     response_user_dislikes=[dislike.to_dict() for dislike in user_dislikes]
     return {"dislikes":response_user_dislikes}
 
-@dislike_routes.route('/<int:post_id>/likes',methods=['POST'])
+@dislike_routes.route('/<int:post_id>/dislikes',methods=['POST'])
 @login_required
 def add_like(post_id):
     '''
-    add likes
+    add dislikes
     '''
     auth = authenticate()
     if 'errors' in auth:
@@ -45,14 +45,14 @@ def add_like(post_id):
 
     already_disliked = Dislike.query.filter_by(post_id=post_id, user_id=auth['id']).first()
     if already_disliked:
-        return {'error':'You already liked this post'}
+        return {'error':'You already disliked this post'}
 
     new_dislike = Dislike(user_id=auth['id'], post_id=post_id)
     db.session.add(new_dislike)
     db.session.commit()
     return new_dislike.to_dict()
 
-@dislike_routes.route('/<int:likeid>',methods=['DELETE'])
+@dislike_routes.route('/<int:dislikeid>',methods=['DELETE'])
 @login_required
 def remove_like(dislikeid):
     '''
