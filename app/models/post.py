@@ -19,8 +19,10 @@ class Post(db.Model):
     users = db.relationship("User", back_populates="posts")
     comments = db.relationship("Comment", back_populates="posts", cascade="all, delete")
     likes = db.relationship("Like", back_populates="posts", cascade="all, delete")
+    dislikes = db.relationship("Dislike", back_populates="posts", cascade="all, delete")
     medias = db.relationship("Media", back_populates="posts", cascade="all, delete")
     community = db.relationship("Community", back_populates="posts")
+
 
     def to_dict(self):
         return {
@@ -32,6 +34,7 @@ class Post(db.Model):
             "medias": [media.to_dict() for media in self.medias],
             "comments": [comment.to_dict() for comment in self.comments],
             "likes":[like.to_dict() for like in self.likes],
+            "dislikes":[dislikes.to_dict() for dislikes in self.dislikes],
             "comments_count": len(self.comments),
             "likes_count": len(self.likes),
             "community": self.community.to_dict()

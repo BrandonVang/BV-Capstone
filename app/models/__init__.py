@@ -5,4 +5,5 @@ from .community import Community
 from .media import Media
 from .post import Post
 from .likes import Like
+from .dislike import Dislike
 from .db import environment, SCHEMA

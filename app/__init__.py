@@ -12,6 +12,7 @@ from .api.comment_routes import comment_routes
 from .api.media_routes import media_routes
 from .api.likes_routes import like_routes
 from .api.user_community import communities_routes
+from .api.dislikes_routes import dislike_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -37,6 +38,7 @@ app.register_blueprint(post_routes, url_prefix='/api/posts')
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
 app.register_blueprint(media_routes, url_prefix='/api/medias')
 app.register_blueprint(like_routes, url_prefix='/api/likes')
+app.register_blueprint(dislike_routes, url_prefix='/api/dislikes')
 app.register_blueprint(communities_routes, url_prefix='/api/community')
 db.init_app(app)
 Migrate(app, db)

@@ -14,6 +14,16 @@ def seed_users():
         username="test", email="testing@aa.io", password='password')
     dummy = User(
         username="dummy", email="dummy@aa.io", password='password')
+    dummy1 = User(
+        username="dummy1", email="dummy1@aa.io", password='password')
+    dummy2 = User(
+        username="dummy2", email="dummy2@aa.io", password='password')
+    dummy3 = User(
+        username="dummy3", email="dummy3@aa.io", password='password')
+    dummy4 = User(
+        username="dummy4", email="dummy4@aa.io", password='password')
+    dummy5 = User(
+        username="dummy5", email="dummy5@aa.io", password='password')
 
     db.session.add(demo)
     db.session.add(marnie)

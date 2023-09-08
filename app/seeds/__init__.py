@@ -4,6 +4,7 @@ from .post_seed import seed_posts, undo_posts
 from .comments_seeds import seed_comments, undo_comments
 from .media import seed_medias, undo_medias
 from .likes import seed_likes, undo_likes
+from .dislike import seed_dislikes, undo_dislikes
 from .user_community import seed_user_community, undo_user_community
 from .community_seeder import seed_community, undo_community
 from app.models.db import db, environment, SCHEMA
@@ -24,6 +25,7 @@ def seed():
         undo_user_community()
         undo_medias()
         undo_likes()
+        undo_dislikes()
         undo_comments()
         undo_posts()
         undo_community()
@@ -33,6 +35,7 @@ def seed():
     seed_posts()
     seed_comments()
     seed_likes()
+    seed_dislikes()
     seed_medias()
     seed_user_community()
     # Add other seed functions here
@@ -44,6 +47,7 @@ def undo():
     undo_user_community()
     undo_medias()
     undo_likes()
+    undo_dislikes()
     undo_comments()
     undo_posts()
     undo_community()
