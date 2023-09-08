@@ -1,5 +1,5 @@
 import './index.css'
-import { profileLinks1, profileLinks2, profileLinks3, profileLinks4 } from './About'
+import { profileLinks1} from './About'
 
 
 const About = () => {

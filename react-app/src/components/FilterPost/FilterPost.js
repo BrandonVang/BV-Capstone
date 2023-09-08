@@ -22,9 +22,8 @@ const CommunityPosts = () => {
     const allPosts = useSelector(state => state.posts.communityPosts[communityId] || []);
     const userCommunities = useSelector(state => state.communities.userCommunities);
     const [showMenu, setShowMenu] = useState(false);
-    const community = Array.isArray(userCommunities)
-        ? userCommunities.find((community) => community.id === Number(communityId))
-        : null;
+    const community = useSelector(state => state.communities.allCommunity[communityId] || null);
+
 
     useEffect(() => {
         dispatch(fetchPostByCommunity(communityId));
@@ -77,6 +76,7 @@ const CommunityPosts = () => {
                             <h2>About Community</h2>
                         </div>
                         <p>A community for {community ? community.name : 'Community Name'} discussion</p>
+
 
                         {user && (
                             <OpenModalButton

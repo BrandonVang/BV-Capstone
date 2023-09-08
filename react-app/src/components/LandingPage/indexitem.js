@@ -1,11 +1,10 @@
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { thunkDeletePostById } from '../../store/post';
 import OpenModalMenuItem from './OpenModalMenuItem'
 import DeleteConfirmModal from '../Delete';
 import EditPostForm from '../CreatePost/EditPostForm';
 import './PostIndex.css';
-import { fetchFollowingPosts, fetchAllPosts } from '../../store/post';
+import { fetchAllPosts } from '../../store/post';
 import { fetchLoggiedInUserCommunities, fetchRemoveCommunities, fetchAddCommunities, fetchAllCommunities } from '../../store/community';
 import React, { useState } from 'react';
 import Likes from '../Likes';
@@ -80,10 +79,10 @@ const PostIndexItem = ({ post, fromPath }) => {
 
 
                     <div className='title-bar-follow-cont'>
-                        {currentUser && !isOwnPost && !isCurrentUserFollowingPostUser && (
+                        {currentUser && !isCurrentUserFollowingPostUser && (
                             <button className='follow-but' onClick={() => handleFollow(post.community.id)}>Join</button>
                         )}
-                        {currentUser && !isOwnPost && isCurrentUserFollowingPostUser && (
+                        {currentUser && isCurrentUserFollowingPostUser && (
                             <button className='unfollow-but' onClick={() => handleUnfollow(post.community.id)}>Leave</button>
                         )}
                     </div>

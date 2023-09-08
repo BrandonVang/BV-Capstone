@@ -282,7 +282,7 @@ svg.content-menu {
     width: 40px;
     background-color: white;
     margin-right: 5px;
-    border-radius: 15px;
+    border-radius: 50%;
 }
 
 .community-rules {

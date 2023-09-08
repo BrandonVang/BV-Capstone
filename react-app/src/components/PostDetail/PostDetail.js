@@ -17,6 +17,7 @@ import Person from "../../images/person.jpg"
 import { fetchLoggiedInUserCommunities, fetchRemoveCommunities, fetchAddCommunities, fetchAllCommunities } from '../../store/community';
 import { fetchFollowingPosts, fetchAllPosts } from '../../store/post';
 import Avatar from "../../images/comment-avatar.png"
+
 function PostDetailPage() {
     const dispatch = useDispatch();
     const { postId } = useParams();
@@ -125,7 +126,7 @@ function PostDetailPage() {
                     <div className="detail-author">
 
                         <div className="detail-creator">
-                            <p className="detail-communnity">r/{post.community.name}</p>
+                            <p className="detail-community">r/{post.community.name}</p>
                             <p className="detail-user">Posted by: {post.user.username}</p>
                         </div>
                         <h1 className="detail-title">{post.title}</h1>
@@ -179,7 +180,7 @@ function PostDetailPage() {
                                     </p>
                                     <p className="detail-comments">{comment.content}</p>
 
-                                    {currentUser && currentUser.id === comment.user_id && (
+                                    {/* {currentUser && currentUser.id === comment.user_id && (
                                         <div className="detail-icons">
                                             <OpenModalMenuItem
                                                 itemType='delete_icon'
@@ -192,7 +193,33 @@ function PostDetailPage() {
                                                 modalComponent={<CommentEditModal comment={comment} />}
                                             />
                                         </div>
-                                    )}
+                                    )} */}
+
+                                    <div className='post-index-item-menu'>
+                                        <i className="fas fa-ellipsis-h"></i>
+
+                                        {currentUser && currentUser.id === comment.user_id &&
+                                            (
+                                                <div className="dropdown-content">
+                                                    <div className='postitem-delete-edit-wrapper'>
+                                                        <OpenModalMenuItem
+                                                            className="delete-menu"
+                                                            itemType='delete_icon'
+                                                            itemText='Delete'
+                                                        modalComponent={<DeleteConfirmModal comments={comment} post={post} type="comment" />}
+                                                        />
+                                                        <OpenModalMenuItem
+                                                            className="edit-menu"
+                                                            itemType='edit_icon'
+                                                            itemText="Update"
+                                                        modalComponent={<CommentEditModal comment={comment} />}
+                                                        // onItemClick={closeMenu}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
                                 </div>
                             ))
                         }

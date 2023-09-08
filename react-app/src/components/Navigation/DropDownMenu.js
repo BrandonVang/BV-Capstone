@@ -41,6 +41,8 @@ const DropdownMenu = () => {
         setIsOpen(false);
     };
 
+
+
     return (
         <div className="dropdown-menu" ref={dropdownRef}>
             <button className="dropdown-toggle" onClick={toggleDropdown}>
@@ -50,7 +52,7 @@ const DropdownMenu = () => {
                     <i className="fas fa-angle-down angle-icon"></i>
                 </div>
             </button>
-            {isOpen && (
+            {isOpen && userCommunities.length > 0 && (
                 <ul className="dropdown-list">
                     {userCommunities.map(community => (
                         <div key={community.id}>

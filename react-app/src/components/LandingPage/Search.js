@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom';
 import PostIndexItem from './indexitem';
 import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllPosts, fetchFollowingPosts, fetchSearchPosts, getSearchPosts } from '../../store/post';
+import { fetchAllPosts, fetchFollowingPosts, getSearchPosts } from '../../store/post';
 import { fetchUserLikes } from '../../store/like';
 import About from '../About/Footer';
 import { useEffect } from 'react';
@@ -51,7 +51,7 @@ const Search = () => {
 
             </div>
 
-            {currentUser && allPosts.length > 0 ? (
+            {allPosts.length > 0 ? (
                 <div className='post-index-all'>
                     {allPosts.map((post, index) => (
                         <PostIndexItem
@@ -62,10 +62,11 @@ const Search = () => {
                 </div>
             ) : (
                 <div className='no-results'>
-                    <img src={error} alt="No results found" className='error-avatar'/>
+                    <img src={error} alt="No results found" className='error-avatar' />
                     <p>Hm... we couldn’t find any results</p>
                 </div>
             )}
+
 
             <div className='post-sidebar'>
                 <div className='l-descri'>
