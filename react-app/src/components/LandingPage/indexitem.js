@@ -6,10 +6,9 @@ import EditPostForm from '../CreatePost/EditPostForm';
 import './PostIndex.css';
 import { fetchAllPosts } from '../../store/post';
 import { fetchLoggiedInUserCommunities, fetchRemoveCommunities, fetchAddCommunities, fetchAllCommunities } from '../../store/community';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Likes from '../Likes/index';
 import Dislikes from '../Dislike/Dislike';
-import ReactLoading from 'react-loading';
 
 const PostIndexItem = ({ post, fromPath }) => {
     const history = useHistory();
@@ -19,7 +18,6 @@ const PostIndexItem = ({ post, fromPath }) => {
     const loggedInUserId = useSelector((state) => state.session.user && state.session.user.id);
     const currentUser = useSelector(getCurrentUser);
     const [isDropdownOpen, setDropdownOpen] = useState(false);
-    const [imageLoading, setImageLoading] = useState(Array(post.medias.length).fill(true)); // Initialize as true for each image
 
     const toggleDropdown = () => {
         setDropdownOpen(!isDropdownOpen);
@@ -56,29 +54,6 @@ const PostIndexItem = ({ post, fromPath }) => {
     const isCurrentUserFollowingPostUser = isUserFollowing(post.community.id);
 
 
-    useEffect(() => {
-        // Create a list of promises to load images
-        const imageLoadPromises = post.medias.map((_, index) => {
-            const image = new Image();
-            image.src = post.medias[index].media_url;
-            return new Promise((resolve) => {
-                image.onload = () => {
-                    setImageLoading((prevLoading) => {
-                        const updatedLoading = [...prevLoading];
-                        updatedLoading[index] = false; // Mark image as loaded
-                        return updatedLoading;
-                    });
-                    resolve();
-                };
-            });
-        });
-
-        // Wait for all image loading promises to resolve
-        Promise.all(imageLoadPromises).then(() => {
-            // All images have loaded, update the component state
-            setImageLoading(Array(post.medias.length).fill(false));
-        });
-    }, [post.medias]);
 
 
     return (
@@ -152,22 +127,16 @@ const PostIndexItem = ({ post, fromPath }) => {
                         <div className='postItem-img-wrapper'>
                             {post.medias.map((item, index) => (
                                 <div className='postItem-img' key={index}>
-                                    {imageLoading[index] ? (
-                                        <div className='loading-spinner-container'>
-                                            <ReactLoading type="spin" color="#000" />
-                                        </div>
-                                    ) : (
-                                        <>
-                                            {item.media_url.endsWith("mp4") && (
-                                                <video controls width="490" height="360">
-                                                    <source src={`${item.media_url}`} type="video/mp4" />
-                                                </video>
-                                            )}
-                                            {!item.media_url.endsWith("mp4") && (
-                                                <img alt='image' src={`${item.media_url}`} />
-                                            )}
-                                        </>
-                                    )}
+                                    {item.media_url.endsWith("mp4") &&
+                                        (
+                                            <video controls width="490" height="360">
+                                                <source src={`${item.media_url}`} type="video/mp4" />
+                                            </video>
+                                        )
+                                    }
+                                    {!item.media_url.endsWith("mp4") &&
+                                        <img alt='image' src={`${item.media_url}`} />
+                                    }
                                 </div>
                             ))}
 
