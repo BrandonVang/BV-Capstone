@@ -43,8 +43,16 @@ const Dislikes = ({ post }) => {
         return userDislikes.some((dislike) => dislike.post_id === post.id);
     };
 
+    const hasUserLikedPost = post.likes.some((like) => like.user_id === loggedInUserId);
+
     const handleDislike = async () => {
         try {
+            // If the user has liked the post, prevent disliking
+            if (hasUserLikedPost) {
+                console.log("User has already liked the post, can't dislike.");
+                return;
+            }
+
             if (isUserDisliked()) {
                 await dispatch(thunkRemoveDisLike(dislikeId));
             } else {
@@ -65,7 +73,11 @@ const Dislikes = ({ post }) => {
     return (
         <div className="dislikes-container">
             {loggedInUserId ? (
-                <DislikeButton isDisliked={isUserDisliked()} onDislike={handleDislike} />
+                hasUserLikedPost ? (
+                    <i className="fa fa-arrow-down" style={{ color: "white", fontSize: "12px" }} />
+                ) : (
+                    <DislikeButton isDisliked={isUserDisliked()} onDislike={handleDislike} />
+                )
             ) : (
                 <OpenModalButton
                     className="login-modal-button"
@@ -79,6 +91,7 @@ const Dislikes = ({ post }) => {
                 />
             )}
         </div>
+
     );
 };
 

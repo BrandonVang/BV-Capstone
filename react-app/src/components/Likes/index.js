@@ -49,8 +49,17 @@ const Likes = ({ post }) => {
         return userLikes.some((like) => like.post_id === post.id);
     };
 
+    const hasUserDisLikedPost = post.dislikes.some((dislike) => dislike.user_id === loggedInUserId);
+
+
     const handleLike = async () => {
         try {
+
+            if (hasUserDisLikedPost) {
+                console.log("User has already disliked the post, can't like")
+                return;
+            }
+
             if (isUserLiked()) {
                 await dispatch(thunkRemoveLike(likeId));
             } else {
@@ -68,27 +77,15 @@ const Likes = ({ post }) => {
         }
     };
 
-    // const handleLike = async () => {
-    //     if (isUserLiked()) {
-    //         await dispatch(thunkRemoveLike(likeId));
-    //         await dispatch(fetchUserLikes(loggedInUserId));
-    //         await dispatch(fetchPostByCommunity(post.community.id));
-    //         await dispatch(fetchAllPosts());
-    //     } else {
-    //         const data = await dispatch(thunkAddLike(post.id));
-    //         setLikeId(data.id)
-    //         await dispatch(fetchUserLikes(loggedInUserId));
-    //         await dispatch(fetchPostByCommunity(post.community.id));
-    //         await dispatch(fetchAllPosts());
-    //     }
-    // };
-
-
-
     return (
         <div className="likes-container">
             {loggedInUserId ? (
-                <LikeButton isLiked={isUserLiked()} onLike={handleLike} />
+                hasUserDisLikedPost ? (
+                    <i className="fa fa-arrow-up" style={{ color: "white", fontSize: "12px" }} />
+                ) : (
+
+                    <LikeButton isLiked={isUserLiked()} onLike={handleLike} />
+                )
             ) : (
                 <OpenModalButton
                     className="login-modal-button"

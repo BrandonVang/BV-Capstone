@@ -12,6 +12,7 @@ import Person from "../../images/person.jpg"
 import OpenModalButton from '../OpenModalButton';
 import CreateMediaForm from '../CreatePost/CreateMedia';
 import error from "../../images/error-search.png"
+
 const Search = () => {
     const getCurrentUser = (state) => state.session.user;
     const currentUser = useSelector(getCurrentUser);

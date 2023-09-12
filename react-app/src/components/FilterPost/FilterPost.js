@@ -12,7 +12,7 @@ import '../LandingPage/PostIndex.css';
 import Profile from '../../images/profile.png'
 import Person from "../../images/person.jpg"
 import About from '../About/Footer';
-
+import CreateCommunityForm from './CreateCommunity';
 
 const CommunityPosts = () => {
     const { communityId } = useParams();
@@ -79,13 +79,20 @@ const CommunityPosts = () => {
 
 
                         {user && (
-                            <OpenModalButton
-                                modalComponent={<CreateMediaForm />}
-                                onItemClick={closeMenu}
-                                className="create-post-button"
-                                buttonText="Create Post"
-                            >
-                            </OpenModalButton>
+                            <>
+                                <OpenModalButton
+                                    modalComponent={<CreateMediaForm />}
+                                    onItemClick={closeMenu}
+                                    className="create-post-button"
+                                    buttonText="Create Post"
+                                />
+                                <OpenModalButton
+                                    modalComponent={<CreateCommunityForm />}
+                                    onItemClick={closeMenu}
+                                    className="create-post-button"
+                                    buttonText="Create Community"
+                                />
+                            </>
                         )}
                         <div className='about-foot'>
 

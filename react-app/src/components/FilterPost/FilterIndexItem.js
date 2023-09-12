@@ -144,29 +144,26 @@ const FilterIndexItem = ({ post, fromPath }) => {
                     </div>
                 </Link>
                 <div className='post-index-item-menu'>
-                    <i className="fas fa-ellipsis-h"></i>
-
-                    {currentUser && currentUser.id === post.user.id &&
-                        (
+                    {currentUser && currentUser.id === post.user.id && (
+                        <div className='postitem-delete-edit-wrapper'>
+                            <i className="fas fa-ellipsis-h"></i>
                             <div className="dropdown-content">
-                                <div className='postitem-delete-edit-wrapper'>
-                                    <OpenModalMenuItem
-                                        className="delete-menu"
-                                        itemType='delete_icon'
-                                        itemText='Delete'
-                                        modalComponent={<DeleteConfirmModal post={post} type='post' />}
-                                    />
-                                    <OpenModalMenuItem
-                                        className="edit-menu"
-                                        itemType='edit_icon'
-                                        itemText="Update"
-                                        modalComponent={<EditPostForm post={post} />}
-                                    // onItemClick={closeMenu}
-                                    />
-                                </div>
+                                <OpenModalMenuItem
+                                    className="delete-menu"
+                                    itemType='delete_icon'
+                                    itemText='Delete'
+                                    modalComponent={<DeleteConfirmModal post={post} type='post' />}
+                                />
+                                <OpenModalMenuItem
+                                    className="edit-menu"
+                                    itemType='edit_icon'
+                                    itemText="Update"
+                                    modalComponent={<EditPostForm post={post} />}
+                                // onItemClick={closeMenu}
+                                />
                             </div>
-                        )
-                    }
+                        </div>
+                    )}
                 </div>
 
             </div >

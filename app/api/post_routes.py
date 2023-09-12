@@ -198,9 +198,8 @@ def search_posts():
         return "Please provide a keyword for search."
 
   search_posts = Post.query.filter(
-        (Post.content.like(f"%{keyword}%"))
-    ).all()
+    (Post.content.like(f"%{keyword}%")) | (Post.title.like(f"%{keyword}%"))
+  ).all()
   response_posts = [post.to_dict() for post in search_posts]
   print(response_posts)
   return {"posts": response_posts }
-

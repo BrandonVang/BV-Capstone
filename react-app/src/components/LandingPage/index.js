@@ -12,6 +12,7 @@ import About from '../About/Footer';
 import { fetchUserLikes, fetchPostLikes } from '../../store/like';
 import Profile from '../../images/profile.png'
 import { fetchUserDisLikes } from '../../store/dislike';
+import CreateCommunityForm from '../FilterPost/CreateCommunity';
 
 const getPost = (state) => Object.values(state.posts.allPosts);
 
@@ -72,6 +73,7 @@ const PostIndex = () => {
                                 >
                                     Create Post
                                 </OpenModalButton>
+
                             </>
                         </div>
                     )}
@@ -94,14 +96,22 @@ const PostIndex = () => {
                     <p>Your personal Reddit frontpage. Come here to check in with your favorite communities.</p>
 
                     {user && (
-                        <OpenModalButton
-                            modalComponent={<CreateMediaForm />}
-                            onItemClick={closeMenu}
-                            className="create-post-button"
-                            buttonText="Create Post"
-                        >
-                        </OpenModalButton>
+                        <>
+                            <OpenModalButton
+                                modalComponent={<CreateMediaForm />}
+                                onItemClick={closeMenu}
+                                className="create-post-button"
+                                buttonText="Create Post"
+                            />
+                            <OpenModalButton
+                                modalComponent={<CreateCommunityForm />}
+                                onItemClick={closeMenu}
+                                className="create-post-button"
+                                buttonText="Create Community"
+                            />
+                        </>
                     )}
+
                     <div className='about-foot'>
 
                         <About />

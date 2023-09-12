@@ -2,6 +2,8 @@ const SET_LOGGED_IN_USER_COMMUNITIES = 'communities/SET_LOGGED_IN_USER_COMMUNITI
 const SET_ADD_COMMUNITIES = 'communities/SET_ADD_COMMUNITIES'
 const SET_ALL_COMMUNITIES = 'communities/SET_ALL_COMMUNITIES'
 const SET_REMOVE_COMMUNITIES = 'communities/SET_REMOVE_COMMUNITIES'
+const CREATE_COMMUNITY = 'communities/CREATE_COMMUNITY';
+const DELETE_COMMUNITY = 'communities/DELETE_COMMUNITY';
 
 const setAllCommunities = (community) => ({
     type: SET_ALL_COMMUNITIES,
@@ -22,6 +24,17 @@ const setRemoveCommunities = (community) => ({
     type: SET_REMOVE_COMMUNITIES,
     community
 })
+
+const createCommunity = (community) => ({
+    type: CREATE_COMMUNITY,
+    community,
+});
+
+const deleteCommunity = (communityId) => ({
+    type: DELETE_COMMUNITY,
+    communityId,
+});
+
 
 export const fetchAllCommunities = () => async (dispatch) => {
     const response = await fetch(`/api/community/`)
@@ -68,6 +81,44 @@ export const fetchRemoveCommunities = (community_id) => async (dispatch) => {
     }
 }
 
+export const fetchCreateCommunity = (communityData) => async (dispatch) => {
+    try {
+        const response = await fetch('/api/community/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(communityData),
+        });
+        if (response.ok) {
+            const community = await response.json();
+            dispatch(createCommunity(community));
+        } else {
+            throw new Error('Failed to create community');
+        }
+    } catch (error) {
+        console.error('Error creating community:', error);
+    }
+};
+
+
+// Thunk to delete a community
+export const fetchDeleteCommunity = (communityId) => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/community/${communityId}/remove`, {
+            method: 'DELETE',
+        });
+        if (response.ok) {
+            const data = await response.json();
+            dispatch(deleteCommunity(communityId));
+        } else {
+            throw new Error('Failed to delete community');
+        }
+    } catch (error) {
+        console.error('Error deleting community:', error);
+    }
+};
+
 
 const initialState = {
     allCommunity: {},
@@ -99,6 +150,24 @@ export default function communityReducer(state = initialState, action) {
                 ...state,
                 allCommunity: newCommunities,
                 userCommunities: newUserCommunities,
+            };
+
+        case CREATE_COMMUNITY:
+            // Add the newly created community to the allCommunity state
+            return {
+                ...state,
+                allCommunity: {
+                    ...state.allCommunity,
+                    [action.community.id]: action.community,
+                },
+            };
+
+        case DELETE_COMMUNITY:
+            // Remove the deleted community from the allCommunity state
+            const { [action.community.id]: deletedCommunity, ...rest } = state.allCommunity;
+            return {
+                ...state,
+                allCommunity: rest,
             };
 
         default:

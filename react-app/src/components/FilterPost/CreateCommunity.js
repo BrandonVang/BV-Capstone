@@ -1,60 +1,77 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { thunkCreatePost, fetchAllPosts } from '../../store/post';
+import { fetchCreateCommunity, fetchAllCommunities } from '../../store/community';
 import { useModal } from '../../context/Modal';
-import OpenModalButton from "../OpenModalButton";
-import "./CreatePostForm.css"
-const CreatePostForm = () => {
-    const [content, setContent] = useState('');
-    const [validationErrors, setValidationErrors] = useState([]);
+
+const CreateCommunityForm = () => {
+    const [name, setName] = useState(''); // Define the 'name' state variable
+    const [validationErrors, setValidationErrors] = useState({});
     const dispatch = useDispatch();
     const history = useHistory();
-    const { closeModal } = useModal()
+    const { closeModal } = useModal();
     const currentUser = useSelector((state) => state.posts.currentUser);
 
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setValidationErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: '',
+        }));
+        setName(value);
+    };
+
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        let errors = {}
-        if (!content) errors.content = 'Content field is required'
-        if (content.length < 5 || content.length > 2000) errors.content = 'Content text must be more than 5 characters and less than 2000'
-        if (Object.keys(errors).length === 0) {
-            const formData = new FormData()
-            formData.append("content", content);
-            await dispatch(thunkCreatePost(formData))
-            setContent('');
-            setValidationErrors([]);
-            await dispatch(fetchAllPosts())
-            // history.push('/')
-            closeModal()
-
-        } else {
-            setValidationErrors(errors);
+        e.preventDefault();
+        if (!name) {
+            setValidationErrors((prevErrors) => ({
+                ...prevErrors,
+                name: 'Community name field is required',
+            }));
+            return;
         }
-    }
+        if (name.length < 5 || name.length > 100) {
+            setValidationErrors((prevErrors) => ({
+                ...prevErrors,
+                name: 'Community name must be between 5 and 100 characters',
+            }));
+            return;
+        }
 
-    // useEffect(() => {
-    //     const errors = [];
-    //     if (!content.length) errors.push('Content field is required');
-    //     if (content.length < 5 || content.length > 2000) errors.content = 'Content text must be more than 5 characters and less than 2000'
-    //     setValidationErrors(errors);
-    // }, [content])
+        const communityData = {
+            name,
+        };
+
+        try {
+            await dispatch(fetchCreateCommunity(communityData));
+            setName(''); // Clear the 'name' field after submission
+            setValidationErrors({});
+            await dispatch(fetchAllCommunities());
+            closeModal();
+        } catch (error) {
+            console.error('Error creating community:', error);
+            // Handle error if needed
+        }
+    };
+
     return (
         <div className='form-container'>
             <form className='create-post-form' onSubmit={handleSubmit}>
-                {validationErrors.content ? <p className="errors">{validationErrors.content}</p> : ''}
-                <input className='PostForm-content'
-                    placeholder='Whats on your mind?'
+                {validationErrors.name && <p className="errors">{validationErrors.name}</p>}
+                <input
+                    className='PostForm-content'
+                    placeholder='Community Name'
                     type='text'
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    value={name}
+                    onChange={handleInputChange}
+                    name="name"
                 />
                 <div className='Create-Form-Submit-btn'>
-                    <button className='Create-Post-Submit' type='submit'>Submit</button>
+                    <button className='Create-Post-Submit' type='submit'>Create Community</button>
                 </div>
             </form>
         </div>
-
     )
 }
-export default CreatePostForm
+
+export default CreateCommunityForm;
