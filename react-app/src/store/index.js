@@ -6,11 +6,13 @@ import mediaReducer from './media';
 import likesReducer from './like';
 import commentsReducer from './comment'
 import communityReducer from './community';
+import dislikesReducer from './dislike';
 
 const rootReducer = combineReducers({
   session,
   posts:postsReducer,
   likes: likesReducer,
+  dislikes: dislikesReducer,
   media: mediaReducer,
   comments: commentsReducer,
   communities: communityReducer,

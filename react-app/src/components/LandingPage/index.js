@@ -11,6 +11,7 @@ import { fetchAllCommunities } from '../../store/community';
 import About from '../About/Footer';
 import { fetchUserLikes, fetchPostLikes } from '../../store/like';
 import Profile from '../../images/profile.png'
+import { fetchUserDisLikes } from '../../store/dislike';
 
 const getPost = (state) => Object.values(state.posts.allPosts);
 
@@ -40,6 +41,7 @@ const PostIndex = () => {
         if (user) {
             try {
                 dispatch(fetchUserLikes(user.id));
+                dispatch(fetchUserDisLikes(user.id))
             } catch (e) {
                 return
             }

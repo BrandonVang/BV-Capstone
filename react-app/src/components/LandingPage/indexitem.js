@@ -7,7 +7,8 @@ import './PostIndex.css';
 import { fetchAllPosts } from '../../store/post';
 import { fetchLoggiedInUserCommunities, fetchRemoveCommunities, fetchAddCommunities, fetchAllCommunities } from '../../store/community';
 import React, { useState } from 'react';
-import Likes from '../Likes';
+import Likes from '../Likes/index';
+import Dislikes from '../Dislike/Dislike';
 
 const PostIndexItem = ({ post, fromPath }) => {
     const history = useHistory();
@@ -53,6 +54,8 @@ const PostIndexItem = ({ post, fromPath }) => {
     const isCurrentUserFollowingPostUser = isUserFollowing(post.community.id);
 
 
+
+
     return (
         <div className='post-index-item-wrapper'>
 
@@ -63,8 +66,12 @@ const PostIndexItem = ({ post, fromPath }) => {
                     <div className="landing-detail-vote">
                         <Likes post={post} />
                         <p className="detail-count">{post.likes_count}</p>
-                        <i className="fa fa-arrow-down" aria-hidden="true"></i>
+                        {/* <i className="fa fa-arrow-down" aria-hidden="true"></i> */}
+                        {(!post.likes.includes(currentUser.id) && !post.dislikes.includes(currentUser.id)) && (
+                            <Dislikes post={post} />
+                        )}
                     </div>
+
 
                     <div className='postItem-title-bar'>
                         <Link to={`/posts/community/${post.community.id}`} className='community-link'>

@@ -37,6 +37,7 @@ class Post(db.Model):
             "dislikes":[dislikes.to_dict() for dislikes in self.dislikes],
             "comments_count": len(self.comments),
             "likes_count": len(self.likes),
+            "dislikes_count": len(self.dislikes),
             "community": self.community.to_dict()
         }
 
@@ -48,5 +49,6 @@ class Post(db.Model):
             "postDate": self.post_date,
             "medias": self.medias.to_dict(),
             "comments": [comment.to_dict() for comment in self.comments],
-            "likes":[like.to_dict() for like in self.likes]
+            "likes":[like.to_dict() for like in self.likes],
+            "dislikes":[dislikes.to_dict() for dislikes in self.dislikes],
         }

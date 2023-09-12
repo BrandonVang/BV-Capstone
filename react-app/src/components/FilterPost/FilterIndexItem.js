@@ -8,6 +8,7 @@ import {fetchAllPosts } from '../../store/post';
 import { fetchLoggiedInUserCommunities, fetchRemoveCommunities, fetchAddCommunities, fetchAllCommunities } from '../../store/community';
 import React, { useState } from 'react';
 import Likes from '../Likes';
+import Dislikes from '../Dislike/Dislike';
 
 const FilterIndexItem = ({ post, fromPath }) => {
     const history = useHistory();
@@ -62,7 +63,7 @@ const FilterIndexItem = ({ post, fromPath }) => {
                     <div className="landing-detail-vote">
                         <Likes post={post} />
                         <p className="detail-count">{post.likes_count}</p>
-                        <i className="fa fa-arrow-down" aria-hidden="true"></i>
+                        <Dislikes post={post} />
                     </div>
 
                     <div className='postItem-title-bar'>
