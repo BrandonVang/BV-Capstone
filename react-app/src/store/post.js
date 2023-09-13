@@ -126,7 +126,6 @@ export const thunkCreatePost = (postData) => async (dispatch) => {
         }
 
         const data = await response.json();
-        console.log("This is post from thunkCreate", data);
         dispatch(addPost(data.posts));
         return data.posts;
     } catch (error) {
