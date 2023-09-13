@@ -3,16 +3,16 @@ import './Dislike.css'
 
 const DislikeButton = ({ isDisliked, onDislike }) => {
     const [disliked, setDisliked] = useState(isDisliked);
-    const [iconColor, setIconColor] = useState(isDisliked ? "blue" : "white");
+    const [iconColor, setIconColor] = useState(isDisliked ? "#7193ff" : "white");
 
     useEffect(() => {
         setDisliked(isDisliked);
-        setIconColor(isDisliked ? "blue" : "white");
+        setIconColor(isDisliked ? "#7193ff" : "white");
     }, [isDisliked]);
 
     const handleClick = () => {
         setDisliked((prevDisliked) => !prevDisliked);
-        setIconColor((prevColor) => (prevColor === "blue" ? "white" : "blue"));
+        setIconColor((prevColor) => (prevColor === "#7193ff" ? "white" : "blue"));
 
         onDislike();
     };

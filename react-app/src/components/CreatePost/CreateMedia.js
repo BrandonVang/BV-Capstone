@@ -50,7 +50,8 @@ const CreateMediaForm = () => {
         }
         if (!title) {
             errors.title = 'Title field is required';
-        }
+        } else if (title.length < 5 || title.length > 100)
+            errors.title = "Title must be more than 5 characters and less than 100 "
         if (!content) {
             errors.content = 'Content field is required';
         } else if (content.length < 5 || content.length > 2000) {

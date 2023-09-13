@@ -58,6 +58,9 @@
     margin-bottom: 10px;
 }
 
+.fa-ellipsis-h:hover {
+    cursor: pointer;
+}
 
 
 .postItem-title-bar {
@@ -103,7 +106,7 @@
     position: relative;
     display: flex;
     justify-content: flex-end;
-    cursor: pointer;
+    /* cursor: pointer; */
     background-color: rgb(26, 26, 27);
 }
 
@@ -142,7 +145,7 @@
     background: rgb(26, 26, 27);
 }
 
-.post-index-item-menu:hover .dropdown-content {
+.postitem-delete-edit-wrapper:hover .dropdown-content {
     display: block;
 }
 

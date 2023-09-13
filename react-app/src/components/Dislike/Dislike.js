@@ -13,7 +13,7 @@ const Dislikes = ({ post }) => {
     const dispatch = useDispatch();
     const userDislikes = useSelector((state) => state.dislikes.userDisLikes || []); // Ensure userDislikes is an array
     const loggedInUserId = useSelector((state) => state.session.user && state.session.user.id);
-    const dislikesId = useSelector((state) => state.dislikes.id)
+    const likesId = useSelector((state) => state.likes.id)
     const [showMenu, setShowMenu] = useState(false);
 
     const closeMenu = () => setShowMenu(false);
@@ -91,7 +91,6 @@ const Dislikes = ({ post }) => {
                 />
             )}
         </div>
-
     );
 };
 

@@ -8,30 +8,23 @@ import { fetchCommentsByPost } from "../../store/comment";
 import LoginFormModal from "../LoginFormModal";
 import OpenModalButton from "../OpenModalButton";
 
-
 const Likes = ({ post }) => {
     const dispatch = useDispatch();
-    const userLikes = useSelector((state) => state.likes.userLikes || []); // Ensure userLikes is an array
+    const userLikes = useSelector((state) => state.likes.userLikes || []);
     const loggedInUserId = useSelector((state) => state.session.user && state.session.user.id);
     const likesId = useSelector((state) => state.likes.id)
-    // const post = useSelector((state) => state.posts.postId)
     const [showMenu, setShowMenu] = useState(false);
-
 
     const closeMenu = () => setShowMenu(false);
 
-    let originalLikeId = null
-    const [likeId, setLikeId] = useState(originalLikeId)
+    let originalLikeId = null;
+    const [likeId, setLikeId] = useState(originalLikeId);
 
     post.likes.forEach(like => {
         if (like.user_id === loggedInUserId) {
-            originalLikeId = like.id
+            originalLikeId = like.id;
         }
-    })
-
-    // useEffect(() => {
-    //     dispatch(fetchPostLikes(post.id));
-    // }, [dispatch, post.id]);
+    });
 
     useEffect(() => {
         if (userLikes) {
@@ -40,7 +33,7 @@ const Likes = ({ post }) => {
             );
             if (foundLike) {
                 originalLikeId = foundLike.id;
-                setLikeId(foundLike.id); // Set likeId to the found ID
+                setLikeId(foundLike.id);
             }
         }
     }, [userLikes, post.id, loggedInUserId]);
@@ -51,12 +44,10 @@ const Likes = ({ post }) => {
 
     const hasUserDisLikedPost = post.dislikes.some((dislike) => dislike.user_id === loggedInUserId);
 
-
     const handleLike = async () => {
         try {
-
             if (hasUserDisLikedPost) {
-                console.log("User has already disliked the post, can't like")
+                console.log("User has already disliked the post, can't like");
                 return;
             }
 
@@ -81,10 +72,9 @@ const Likes = ({ post }) => {
         <div className="likes-container">
             {loggedInUserId ? (
                 hasUserDisLikedPost ? (
-                    <i className="fa fa-arrow-up" style={{ color: "white", fontSize: "12px" }} />
+                    <i className="fa fa-arrow-up" style={{ color: "white", fontSize: "12px"}} />
                 ) : (
-
-                    <LikeButton isLiked={isUserLiked()} onLike={handleLike} />
+                        <LikeButton isLiked={isUserLiked()} onLike={handleLike} />
                 )
             ) : (
                 <OpenModalButton
@@ -94,13 +84,13 @@ const Likes = ({ post }) => {
                             <i className="fa fa-arrow-up" style={{ color: "white", fontSize: "12px" }} />
                         </div>
                     }
-                    onItemClick={closeMenu} // You'll need to define closeMenu function
+                    onItemClick={closeMenu}
                     modalComponent={<LoginFormModal />}
                 />
             )}
         </div>
     );
-};
 
+};
 
 export default Likes;
