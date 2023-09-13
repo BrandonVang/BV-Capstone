@@ -9,6 +9,7 @@ import { fetchLoggiedInUserCommunities, fetchRemoveCommunities, fetchAddCommunit
 import React, { useState } from 'react';
 import Likes from '../Likes/index';
 import Dislikes from '../Dislike/Dislike';
+import PostImage from '../CreatePost/Loading';
 
 const PostIndexItem = ({ post, fromPath }) => {
     const history = useHistory();
@@ -126,21 +127,8 @@ const PostIndexItem = ({ post, fromPath }) => {
                     <div>
                         <div className='postItem-img-wrapper'>
                             {post.medias.map((item, index) => (
-                                <div className='postItem-img' key={index}>
-                                    {item.media_url.endsWith("mp4") &&
-                                        (
-                                            <video controls width="490" height="360">
-                                                <source src={`${item.media_url}`} type="video/mp4" />
-                                            </video>
-                                        )
-                                    }
-                                    {!item.media_url.endsWith("mp4") &&
-                                        <img alt='image' src={`${item.media_url}`} />
-                                    }
-                                </div>
+                                <PostImage key={index} mediaUrl={item.media_url} />
                             ))}
-
-
                         </div>
                         <div>
                             <p>{post.content}</p>

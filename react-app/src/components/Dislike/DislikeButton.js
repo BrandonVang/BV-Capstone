@@ -12,7 +12,7 @@ const DislikeButton = ({ isDisliked, onDislike }) => {
 
     const handleClick = () => {
         setDisliked((prevDisliked) => !prevDisliked);
-        setIconColor((prevColor) => (prevColor === "#7193ff" ? "white" : "blue"));
+        setIconColor((prevColor) => (prevColor === "#7193ff" ? "white" : "#7193ff"));
 
         onDislike();
     };
