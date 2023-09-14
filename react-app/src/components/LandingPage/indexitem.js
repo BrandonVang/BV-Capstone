@@ -65,8 +65,7 @@ const PostIndexItem = ({ post, fromPath }) => {
 
                     <div className="landing-detail-vote">
                         <Likes post={post} />
-                        <p className="detail-count">{post.likes_count}</p>
-                        {/* <i className="fa fa-arrow-down" aria-hidden="true"></i> */}
+                        <p className="detail-count">{post.likes_count - post.dislikes_count}</p>
                         <Dislikes post={post} />
                     </div>
 
