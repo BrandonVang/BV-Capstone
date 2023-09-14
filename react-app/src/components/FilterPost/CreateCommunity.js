@@ -5,7 +5,7 @@ import { fetchCreateCommunity, fetchAllCommunities } from '../../store/community
 import { useModal } from '../../context/Modal';
 
 const CreateCommunityForm = () => {
-    const [name, setName] = useState(''); // Define the 'name' state variable
+    const [name, setName] = useState('');
     const [validationErrors, setValidationErrors] = useState({});
     const dispatch = useDispatch();
     const history = useHistory();
@@ -43,11 +43,13 @@ const CreateCommunityForm = () => {
         };
 
         try {
-            await dispatch(fetchCreateCommunity(communityData));
+            const community = await dispatch(fetchCreateCommunity(communityData));
+            const communityId = community.id; // Get the community ID from the response
             setName(''); // Clear the 'name' field after submission
             setValidationErrors({});
             await dispatch(fetchAllCommunities());
             closeModal();
+            history.push(`/posts/community/${communityId}`);
         } catch (error) {
             console.error('Error creating community:', error);
             // Handle error if needed

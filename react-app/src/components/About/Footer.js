@@ -11,13 +11,13 @@ const About = () => {
             <div className='about-containers'>
                 <span className="about-text">Created by Brandon Vang </span>
                 <span className='About1'>
-                    <a href={github1} >
+                    <a href={github1} target='_blank'>
                         <i className="fab fa-github"></i>
                     </a>
-                    <a href={linkedin1} >
+                    <a href={linkedin1} target='_blank'>
                         <i className="fab fa-linkedin"></i>
                     </a>
-                    <a href={`mailto:${email1}`}>
+                    <a href={`mailto:${email1}`} target='_blank'>
                         <i className="fas fa-envelope"></i>
                     </a>
                 </span>

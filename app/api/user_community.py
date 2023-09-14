@@ -70,30 +70,25 @@ def unfollowing(community_id):
 @communities_routes.route('/create', methods=['POST'])
 @login_required
 def create_community():
-    """
-    Create a new community.
-    """
     data = request.json
 
-    # Check if the community name is provided in the request data
     if 'name' not in data:
         return jsonify({'error': 'Community name is required'}), 400
 
-    # Check if a community with the same name already exists
     existing_community = Community.query.filter_by(name=data['name']).first()
     if existing_community:
         return jsonify({'error': 'A community with this name already exists'}), 400
 
-    # Create a new community with the user_id of the current user
     new_community = Community(name=data['name'], user_id=current_user.id)
     db.session.add(new_community)
 
-    # Add the current user as a member of the new community
     current_user.communities_joined.append(new_community)
 
     db.session.commit()
 
-    return jsonify({'message': f'Community {new_community.name} created successfully'}), 201
+    # Include the assigned ID in the response
+    return jsonify({'message': f'Community {new_community.name} created successfully', 'id': new_community.id}), 201
+
 
 
 

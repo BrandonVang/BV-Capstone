@@ -90,14 +90,19 @@ export const fetchCreateCommunity = (communityData) => async (dispatch) => {
             },
             body: JSON.stringify(communityData),
         });
+
         if (response.ok) {
             const community = await response.json();
             dispatch(createCommunity(community));
+            return community; // Return the community object
         } else {
-            throw new Error('Failed to create community');
+            // Handle errors and throw an error with a specific message
+            const errorData = await response.json();
+            throw new Error(`Failed to create community: ${errorData.error}`);
         }
     } catch (error) {
         console.error('Error creating community:', error);
+        throw error; // Re-throw the error to be handled at a higher level
     }
 };
 
